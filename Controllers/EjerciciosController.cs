@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
 using Proyecto1.Data;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace Proyecto1.Controllers;
 
@@ -17,4 +18,16 @@ public class EjerciciosController : Controller
     {
         return View();
     }
+
+    public JsonResult GetEjercicios(int? id)
+    {
+    var Ejercicios = _context.Ejercicios.ToList();
+
+    if (Ejercicios != null) {
+        Ejercicios = Ejercicios.Where(e => e.Id == id).ToList();
+    }
+
+        return Json(_context.Ejercicios.ToList());
+    }
+
 }
