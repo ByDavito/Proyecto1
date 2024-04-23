@@ -30,4 +30,25 @@ public class EjerciciosController : Controller
         return Json(_context.Ejercicios.ToList());
     }
 
+    public JsonResult GuardarTipoEjercicio(string nombre)
+    {
+
+        if (string.IsNullOrEmpty(nombre))
+        {
+            return Json(false);
+        }
+
+        var existeTipoEjercicios = _context.Ejercicios.Where(t => t.Nombre == nombre).ToList();
+        if (existeTipoEjercicios.Count == 0)
+        {
+            var tipoEjercicio = new Ejercicio
+            {
+                Nombre = nombre
+            };
+            _context.Add(tipoEjercicio);
+            _context.SaveChanges();
+        }
+        return Json(true);
+    }
+
 }

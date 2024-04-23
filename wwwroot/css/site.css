@@ -19,6 +19,9 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-image: url("../img/fondo-login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .form{
