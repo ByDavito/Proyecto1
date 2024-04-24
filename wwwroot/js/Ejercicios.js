@@ -13,25 +13,25 @@ function GetEjercicios() {{
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (tipoDeEjercicios) {
+        success: function (Ejercicios) {
 
             $("#ModalTipoEjercicio").modal("hide");
             LimpiarModal();
             //$("#tbody-tipoejercicios").empty();
             let contenidoTabla = ``;
 
-            $.each(tipoDeEjercicios, function (Ejercicios, tipoDeEjercicio) {  
+            $.each(Ejercicios, function (Index, Ejercicio) {  
                 
                 contenidoTabla += `
                 <tr>
-                    <td>${tipoDeEjercicio.nombre}</td>
+                    <td class="blur">${Ejercicio.nombre}</td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${tipoDeEjercicio.id})">
+                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.id})">
                     Editar
                     </button>
                     </td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${tipoDeEjercicio.id})">
+                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.id})">
                     Eliminar
                     </button>
                     </td>
@@ -73,22 +73,22 @@ function AbrirModalEditar(id){
     
     $.ajax({
         // la URL para la petición
-        url: '../../Ejercicios/ListadoTipoEjercicios',
+        url: '../../Ejercicios/GetEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { id: tipoEjercicioID},
+        data: { id: id},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (id) {
-            let tipoDeEjercicio = id[0];
+        success: function (Ejercicios) {
+            let ejercicio = Ejercicios[0];
 
-            document.getElementById("TipoEjercicioID").value = tipoEjercicioID;
+            document.getElementById("TipoEjercicioID").value = id;
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");
-            document.getElementById("descripcion").value = tipoDeEjercicio.descripcion;
+            document.getElementById("descripcion").value = ejercicio.nombre;
             $("#ModalTipoEjercicio").modal("show");
         },
 
@@ -107,7 +107,7 @@ function GuardarRegistro(){
     let nombre = document.getElementById("descripcion").value;
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
     //LUEGO POR OTRO LADO HACER VERIFICACIONES DE DATOS EN EL BACK, SI EXISTE EL ELEMENTO SI NECESITAMOS LA BASE DE DATOS.
-    console.log(descripcion);
+    console.log(nombre);
     $.ajax({
         // la URL para la petición
         url: '../../Ejercicios/GuardarTipoEjercicio',
@@ -125,7 +125,7 @@ function GuardarRegistro(){
             if(resultado != ""){
                 alert(resultado);
             }
-            ListadoTipoEjercicios();
+            GetEjercicios();
         },
 
         // código a ejecutar si la petición falla;
@@ -151,7 +151,7 @@ function EliminarRegistro(id){
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
         success: function (resultado) {           
-            ListadoTipoEjercicios();
+            GetEjercicios();
         },
 
         // código a ejecutar si la petición falla;

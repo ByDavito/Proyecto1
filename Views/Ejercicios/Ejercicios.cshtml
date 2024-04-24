@@ -2,13 +2,15 @@
     ViewData["Title"] = "Ejercicio";
 }
 
+<link rel="stylesheet" href="~/Ejercicios/style-ejercicios.css">
+
 <div class="text-center">
   <h1 class="display-4">Tipo de Ejercicios</h1>
 </div>
 
 <!-- Button trigger modal -->
 <div class="mb-2">
-  <button type="button" onclick="ListadoTipoEjercicios()" class="btn btn-primary">
+  <button type="button" onclick="GetEjercicios()" class="btn btn-primary">
     Refrescar Tabla
   </button>
   <button type="button" class="btn btn-primary" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
@@ -42,7 +44,7 @@
   </div>
 </div>
 
-<table class="table table-light table-bordered table-striped table-condensed">
+<table class="table blur table-bordered  ">
   <thead>
     <tr>
       <th>Descripción</th>
