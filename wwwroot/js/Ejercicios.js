@@ -21,9 +21,8 @@ function GetEjercicios() {{
             let contenidoTabla = ``;
 
             $.each(Ejercicios, function (Index, Ejercicio) {  
-                
                 contenidoTabla += `
-                <tr>
+                <tr class="fila-resaltar">
                     <td class="blur">${Ejercicio.nombre}</td>
                     <td class="text-center">
                     <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.id})">
@@ -36,6 +35,7 @@ function GetEjercicios() {{
                     </button>
                     </td>
                 </tr>
+             `;
              `;
 
                 //  $("#tbody-tipoejercicios").append(`
@@ -59,6 +59,17 @@ function GetEjercicios() {{
         }
     });
 }}
+
+$(document).ready(function() {
+    // Utilizamos un evento delegado para que se aplique a las filas que se generen dinámicamente
+    $(document).on('mouseenter', '.fila-resaltar', function() {
+      $(this).addClass('table-active');
+    });
+  
+    $(document).on('mouseleave', '.fila-resaltar', function() {
+      $(this).removeClass('table-active');
+    });
+  });
 
 function LimpiarModal(){
     document.getElementById("TipoEjercicioID").value = 0;

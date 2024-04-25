@@ -12,9 +12,14 @@
   border: 1px solid transparent; 
   transition: .5s;
 }
-.table th:hover,
-.table td:hover {
+
+
+.fila-resaltar:hover {
   background-color: rgba(182, 178, 178, 0.486); 
   transition: .5s;
-  border-radius: 15px;
+}
+
+.mi-tabla tr:last-child td{
+  border-bottom-left-radius: 15px; /* Ajustá el valor según lo que necesites */
+  border-bottom-right-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
