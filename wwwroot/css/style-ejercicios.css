@@ -1,0 +1,20 @@
+.table {
+    width: 45rem;
+    background-color: rgba(0, 0, 0, 0.389);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-shadow: 0 0 5px;
+    border-radius: 15px;
+}
+
+.table th,
+.table td {
+  border: 1px solid transparent; 
+  transition: .5s;
+}
+.table th:hover,
+.table td:hover {
+  background-color: rgba(182, 178, 178, 0.486); 
+  transition: .5s;
+  border-radius: 15px;
+}

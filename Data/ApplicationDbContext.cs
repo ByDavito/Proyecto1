@@ -12,4 +12,5 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<Ejercicio> Ejercicios { get; set; } = null!;
+    public DbSet<EjercicioFisico> EjerciciosFisicos { get; set; } = null!;
 }

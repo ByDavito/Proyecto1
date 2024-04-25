@@ -24,12 +24,12 @@ public class EjerciciosController : Controller
     {
         var Ejercicios = _context.Ejercicios.ToList();
 
-        if (Ejercicios != null)
+        if (id != null)
         {
             Ejercicios = Ejercicios.Where(e => e.Id == id).ToList();
         }
 
-        return Json(_context.Ejercicios.ToList());
+        return Json(Ejercicios.ToList());
     }
 
     public JsonResult GuardarTipoEjercicio(string nombre, int id)

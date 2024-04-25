@@ -22,6 +22,21 @@
     background-image: conic-gradent(rgb(243, 5, 5) 10deg, transparent 120deg);
 }
 
+.navbar:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background: linear-gradient(0deg, rgba(0,0,0,0.04665616246498594) 0%, rgba(0,0,0,0.6124824929971988) 58%);
+    z-index: -1;
+  }
+.footer{
+    background-color: rgba(0, 0, 0, 0.389);
+      backdrop-filter: blur(10px);
+}
 
 .input-transparent{
     background-color: rgba(255, 255, 255, 0.527);
@@ -38,7 +53,17 @@
 
 
 .test {
-    background-color: rgb(185, 59, 59);
+    background-color: rgba(232, 24, 24, 0.601);
+    backdrop-filter: blur(10px);
+    border: solid 1px transparent;
+    transition: .5s;
+}
+
+.test:hover {
+    background-color: rgba(232, 24, 24, 0.946);
+    border: solid 1px transparent;
+    transition: .5s;
+    
 }
 
 .centrar {

@@ -232,12 +232,51 @@ namespace Proyecto1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Ejercicios");
+                });
+
+            modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
+                {
+                    b.Property<int>("IdEjercicioFisico")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEjercicioFisico"));
+
+                    b.Property<int>("EjercicioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoFin")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoInicio")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Inicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdEjercicioFisico");
+
+                    b.HasIndex("EjercicioId");
+
+                    b.ToTable("EjerciciosFisicos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -289,6 +328,22 @@ namespace Proyecto1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
+                {
+                    b.HasOne("Proyecto1.Models.Ejercicio", "Ejercicio")
+                        .WithMany("EjerciciosFisicos")
+                        .HasForeignKey("EjercicioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ejercicio");
+                });
+
+            modelBuilder.Entity("Proyecto1.Models.Ejercicio", b =>
+                {
+                    b.Navigation("EjerciciosFisicos");
                 });
 #pragma warning restore 612, 618
         }

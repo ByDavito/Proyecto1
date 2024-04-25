@@ -70,7 +70,6 @@ function NuevoRegistro(){
 }
 
 function AbrirModalEditar(id){
-    
     $.ajax({
         // la URL para la petición
         url: '../../Ejercicios/GetEjercicios',
@@ -85,7 +84,6 @@ function AbrirModalEditar(id){
         // la respuesta es pasada como argumento a la función
         success: function (Ejercicios) {
             let ejercicio = Ejercicios[0];
-
             document.getElementById("TipoEjercicioID").value = id;
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");
             document.getElementById("descripcion").value = ejercicio.nombre;
