@@ -1,0 +1,31 @@
+@{
+  ViewData["Title"] = "Ejercicios";
+}
+
+<link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
+
+<div class="Contenedor">
+  <form>
+    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Ejercicio aplicado
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="dropdown-Ejercicio">
+    <li><a class="dropdown-item" href="#">caminar</a></li>
+    <li><a class="dropdown-item" href="#">Correr</a></li>
+    <li><a class="dropdown-item" href="#">Gimnasio</a></li>
+    <li><a class="dropdown-item" href="#">Bicicleta</a></li>
+  </ul>
+</div>
+    <div class="">
+    <input type="datetime-local" id="inicio" aria-label="hora de inicio">
+    <input type="datetime-local" id="fin" aria-label="hora de fin">
+    </div>
+    <input type="list" id="estadoInicio">
+    <input type="list" id="estadoFin">
+
+  </form>
+
+  <script src="~/js/ejerciciosfisicos.js"></script>
+
+</div>
