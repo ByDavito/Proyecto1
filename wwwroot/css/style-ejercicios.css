@@ -17,9 +17,19 @@
 .fila-resaltar:hover {
   background-color: rgba(182, 178, 178, 0.486); 
   transition: .5s;
+  color: white;
 }
 
-.mi-tabla tr:last-child td{
-  border-bottom-left-radius: 15px; /* Ajustá el valor según lo que necesites */
-  border-bottom-right-radius: 15px; /* Ajustá el valor según lo que necesites */
+.mi-tabla tr.ultima-fila td:first-child {
+  border-bottom-left-radius: 10px; /* Ajustá el valor según lo que necesites */
+}
+
+/* Aplicar bordes redondeados solo al último elemento de la última fila */
+.mi-tabla tr.ultima-fila td:last-child {
+  border-bottom-right-radius: 10px; /* Ajustá el valor según lo que necesites */
+}
+
+.mi-modal{
+  background-color: rgba(0, 0, 0, 0.389);
+    backdrop-filter: blur(10px);
 }

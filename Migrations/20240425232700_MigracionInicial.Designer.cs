@@ -12,8 +12,8 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240425030343_Migracion1")]
-    partial class Migracion1
+    [Migration("20240425232700_MigracionInicial")]
+    partial class MigracionInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

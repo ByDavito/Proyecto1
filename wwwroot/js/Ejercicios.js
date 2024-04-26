@@ -22,7 +22,7 @@ function GetEjercicios() {{
 
             $.each(Ejercicios, function (Index, Ejercicio) {  
                 contenidoTabla += `
-                <tr class="fila-resaltar">
+                <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
                     <td class="blur">${Ejercicio.nombre}</td>
                     <td class="text-center">
                     <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.id})">
@@ -36,7 +36,7 @@ function GetEjercicios() {{
                     </td>
                 </tr>
              `;
-             `;
+            
 
                 //  $("#tbody-tipoejercicios").append(`
                 //     <tr>
@@ -114,7 +114,7 @@ function GuardarRegistro(){
     //GUARDAMOS EN UNA VARIABLE LO ESCRITO EN EL INPUT DESCRIPCION
     let id = document.getElementById("TipoEjercicioID").value;
     let nombre = document.getElementById("descripcion").value;
-    let eliminado = flase
+    let eliminado = false
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
     //LUEGO POR OTRO LADO HACER VERIFICACIONES DE DATOS EN EL BACK, SI EXISTE EL ELEMENTO SI NECESITAMOS LA BASE DE DATOS.
     console.log(nombre);

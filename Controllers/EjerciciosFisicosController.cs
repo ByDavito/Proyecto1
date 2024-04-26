@@ -34,7 +34,7 @@ public class EjerciciosFisicosController : Controller
 
     }
 
-    public JsonResult GuardarTipoEjercicio(int IdEjercicioFisico, int Id, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones, VirtualFileResult ejercicio)
+    public JsonResult GuardarTipoEjercicio(int IdEjercicioFisico, int Id, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -45,7 +45,7 @@ public class EjerciciosFisicosController : Controller
         if (IdEjercicioFisico > 0)
         {
             //2- VERIFICAR SI ESTA EDITANDO O CREANDO NUEVO REGISTRO
-            if (Id == 0)
+            if (IdEjercicioFisico == 0)
             {
                 var EjercicioFisico = new EjercicioFisico
                 {
