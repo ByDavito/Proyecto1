@@ -34,7 +34,7 @@ public class EjerciciosFisicosController : Controller
 
     }
 
-    public JsonResult GuardarTipoEjercicio(int IdEjercicioFisico, int Id, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
+    public JsonResult GuardarTipoEjercicio(int IdEjercicioFisico, int IdEjercicio, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -50,7 +50,7 @@ public class EjerciciosFisicosController : Controller
                 var EjercicioFisico = new EjercicioFisico
                 {
                     IdEjercicioFisico = IdEjercicioFisico,
-                    Id = Id,
+                    // IdEjercicio = IdEjercicio,
                     Inicio = Inicio,
                     Fin = Fin,
                     EstadoInicio = EstadoInicio,
@@ -80,6 +80,12 @@ public class EjerciciosFisicosController : Controller
         return Json(resultado);
     }
     
+     public JsonResult GetEstadoEmocional(){
+        var EstadoEmocional = Enum.GetNames(typeof(EstadoEmocional)).ToList();
+        return Json(EstadoEmocional.ToList());
+    }
+
+
     public JsonResult DeleteEjercicioFisico(int IdEjercicioFisico)
     {
         var EjercicioFisico = _context.EjerciciosFisicos.Find(IdEjercicioFisico);

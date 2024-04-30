@@ -20,19 +20,22 @@ public class EjerciciosController : Controller
         return View();
     }
 
-    public JsonResult GetEjercicios(int? id)
+    public JsonResult GetEjercicios(int? IdEjercicio)
     {
         var Ejercicios = _context.Ejercicios.ToList();
 
-        if (id != null)
+        if (IdEjercicio != null)
         {
-            Ejercicios = Ejercicios.Where(e => e.Id == id).ToList();
+            Ejercicios = Ejercicios.Where(e => e.IdEjercicio == IdEjercicio).ToList();
         }
 
         return Json(Ejercicios.ToList());
     }
 
-    public JsonResult GuardarTipoEjercicio(string nombre, int id)
+   
+
+
+    public JsonResult GuardarTipoEjercicio(string nombre, int IdEjercicio)
     {
      //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -53,7 +56,7 @@ public class EjerciciosController : Controller
             //INGRESA SI ESCRIBIO SI O SI 
 
             //2- VERIFICAR SI ESTA EDITANDO O CREANDO NUEVO REGISTRO
-            if (id == 0)
+            if (IdEjercicio == 0)
             {
                 //3- VERIFICAMOS SI EXISTE EN BASE DE DATOS UN REGISTRO CON LA MISMA DESCRIPCION
                 //PARA REALIZAR ESA VERIFICACION BUSCAMOS EN EL CONTEXTO, ES DECIR EN BASE DE DATOS 
@@ -77,11 +80,11 @@ public class EjerciciosController : Controller
             else
             {
                 //QUIERE DECIR QUE VAMOS A EDITAR EL REGISTRO
-                var tipoEjercicioEditar = _context.Ejercicios.Where(t => t.Id == id).SingleOrDefault();
+                var tipoEjercicioEditar = _context.Ejercicios.Where(t => t.IdEjercicio == IdEjercicio).SingleOrDefault();
                 if (tipoEjercicioEditar != null)
                 {
                     //BUSCAMOS EN LA TABLA SI EXISTE UN REGISTRO CON EL MISMO NOMBRE PERO QUE EL ID SEA DISTINTO AL QUE ESTAMOS EDITANDO
-                    var existeTipoEjercicio = _context.Ejercicios.Where(t => t.Nombre == nombre && t.Id != id).Count();
+                    var existeTipoEjercicio = _context.Ejercicios.Where(t => t.Nombre == nombre && t.IdEjercicio != IdEjercicio).Count();
                     if (existeTipoEjercicio == 0)
                     {
                         //QUIERE DECIR QUE EL ELEMENTO EXISTE Y ES CORRECTO ENTONCES CONTINUAMOS CON EL EDITAR
@@ -103,9 +106,9 @@ public class EjerciciosController : Controller
         return Json(resultado);
     }
 
-public JsonResult EliminarTipoEjercicio(int Id)
+public JsonResult EliminarTipoEjercicio(int IdEjercicio)
     {
-        var Ejercicio = _context.Ejercicios.Find(Id);
+        var Ejercicio = _context.Ejercicios.Find(IdEjercicio);
         _context.Remove(Ejercicio);
         _context.SaveChanges();
 

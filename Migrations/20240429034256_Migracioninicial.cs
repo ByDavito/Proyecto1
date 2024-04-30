@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Proyecto1.Migrations
 {
     /// <inheritdoc />
-    public partial class MigracionInicial : Migration
+    public partial class Migracioninicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,14 +54,14 @@ namespace Proyecto1.Migrations
                 name: "Ejercicios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    IdEjercicio = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Eliminado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ejercicios", x => x.Id);
+                    table.PrimaryKey("PK_Ejercicios", x => x.IdEjercicio);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,22 +176,21 @@ namespace Proyecto1.Migrations
                 {
                     IdEjercicioFisico = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EstadoInicio = table.Column<int>(type: "int", nullable: false),
                     EstadoFin = table.Column<int>(type: "int", nullable: false),
                     Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EjercicioId = table.Column<int>(type: "int", nullable: false)
+                    EjercicioIdEjercicio = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EjerciciosFisicos", x => x.IdEjercicioFisico);
                     table.ForeignKey(
-                        name: "FK_EjerciciosFisicos_Ejercicios_EjercicioId",
-                        column: x => x.EjercicioId,
+                        name: "FK_EjerciciosFisicos_Ejercicios_EjercicioIdEjercicio",
+                        column: x => x.EjercicioIdEjercicio,
                         principalTable: "Ejercicios",
-                        principalColumn: "Id",
+                        principalColumn: "IdEjercicio",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -235,9 +234,9 @@ namespace Proyecto1.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EjerciciosFisicos_EjercicioId",
+                name: "IX_EjerciciosFisicos_EjercicioIdEjercicio",
                 table: "EjerciciosFisicos",
-                column: "EjercicioId");
+                column: "EjercicioIdEjercicio");
         }
 
         /// <inheritdoc />

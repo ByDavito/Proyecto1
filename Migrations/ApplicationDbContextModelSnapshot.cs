@@ -226,11 +226,11 @@ namespace Proyecto1.Migrations
 
             modelBuilder.Entity("Proyecto1.Models.Ejercicio", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdEjercicio")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEjercicio"));
 
                     b.Property<bool>("Eliminado")
                         .HasColumnType("bit");
@@ -238,7 +238,7 @@ namespace Proyecto1.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdEjercicio");
 
                     b.ToTable("Ejercicios");
                 });
@@ -251,7 +251,7 @@ namespace Proyecto1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEjercicioFisico"));
 
-                    b.Property<int>("EjercicioId")
+                    b.Property<int>("EjercicioIdEjercicio")
                         .HasColumnType("int");
 
                     b.Property<int>("EstadoFin")
@@ -263,9 +263,6 @@ namespace Proyecto1.Migrations
                     b.Property<DateTime>("Fin")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Inicio")
                         .HasColumnType("datetime2");
 
@@ -274,7 +271,7 @@ namespace Proyecto1.Migrations
 
                     b.HasKey("IdEjercicioFisico");
 
-                    b.HasIndex("EjercicioId");
+                    b.HasIndex("EjercicioIdEjercicio");
 
                     b.ToTable("EjerciciosFisicos");
                 });
@@ -334,7 +331,7 @@ namespace Proyecto1.Migrations
                 {
                     b.HasOne("Proyecto1.Models.Ejercicio", "Ejercicio")
                         .WithMany("EjerciciosFisicos")
-                        .HasForeignKey("EjercicioId")
+                        .HasForeignKey("EjercicioIdEjercicio")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

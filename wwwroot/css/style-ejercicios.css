@@ -21,12 +21,12 @@
 }
 
 .mi-tabla tr.ultima-fila td:first-child {
-  border-bottom-left-radius: 10px; /* Ajustá el valor según lo que necesites */
+  border-bottom-left-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
 
 /* Aplicar bordes redondeados solo al último elemento de la última fila */
 .mi-tabla tr.ultima-fila td:last-child {
-  border-bottom-right-radius: 10px; /* Ajustá el valor según lo que necesites */
+  border-bottom-right-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
 
 .mi-modal{

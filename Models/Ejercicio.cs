@@ -5,7 +5,7 @@ namespace Proyecto1.Models;
 public class Ejercicio
 {
     [Key]
-    public int Id { get; set; }
+    public int IdEjercicio { get; set; }
 
     public string? Nombre { get; set; }
     public bool Eliminado { get; set; }
