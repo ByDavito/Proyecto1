@@ -7,7 +7,7 @@ namespace Proyecto1.Models
     public class EjercicioFisico{
         [Key]
         public int IdEjercicioFisico { get; set; }
-        // public int IdEjercicio { get; set; }
+        public int IdEjercicio { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }
         public EstadoEmocional EstadoInicio { get; set; }
@@ -33,7 +33,7 @@ namespace Proyecto1.Models
         Euforico,
         Agitado,
         Satisfecho,
-        Desanimado
+        Desanimado,
     }
 
 }

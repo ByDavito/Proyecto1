@@ -20,6 +20,10 @@ body{
     margin-top: 3rem;
 }
 
+.mi-tabla{
+    width: 100%;
+}
+
 form{
     display: flex;
     flex-direction: column;
@@ -27,12 +31,87 @@ form{
     justify-content: center;
     
 }
-input{
-    margin: 2rem 1rem 1rem 0; 
-    height: 3rem;
-    border-radius: 20px;
-    background-color: rgba(243, 243, 243, 0.281);
+
+
+
+.input-transparent{
+    background-color: rgba(255, 255, 255, 0.245);
+    backdrop-filter: blur(5px);
     color: white;
-    border: solid 1px white;
-    padding: 20px;
+    text-shadow: 0 0 3px white;
+    border-radius: 15px;
+    transition: .5s;
+    text-align: center;
+    border-color: rgba(204, 21, 21, 0.589);
 }
+
+.col-md-12 select{
+  width: 18vw;
+  margin-right: 0;
+  
+}
+
+select option{
+  background-color: aqua;
+}
+div select{
+  margin-right: 2.5rem;
+}
+
+.input-transparent:active {
+    background-color: rgba(255, 255, 255, 0.356);
+    text-shadow: 0 0 10px;
+    
+}
+
+.textarea-transparent{
+    background-color: rgba(255, 255, 255, 0.245);
+    backdrop-filter: blur(5px);
+    height: 10rem;
+    width: 20rem;
+    resize: none !important;
+    color: white;
+    text-shadow: 0 0 3px white;
+    border-radius: 15px;
+    transition: .5s;
+    margin: 0 30%;
+    border-color: rgba(204, 21, 21, 0.425);
+}
+.mi-modal{
+    background-color: rgba(0, 0, 0, 0.389);
+      backdrop-filter: blur(10px);
+  }
+
+  .input-circulo {
+    width: 52px; /* Ancho inicial del círculo */
+    height: 52px; /* Alto inicial del círculo */
+    border-radius: 100%; /* Para que sea un círculo */
+    transition: all 0.3s ease; /* Transición suave */
+    
+  }
+  
+  .input-circulo:focus, .expanded {
+    width: 200px; /* Ancho al seleccionar la fecha */
+    border-radius: 15px; /* Cambio de forma */
+    background-color: rgba(255, 255, 255, 0.781);
+    color: black;
+  }
+
+  .input-circulo::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invertir el color del icono */
+    font-size: 1.5rem;
+    transition: .5s;
+  }
+
+  .input-circulo:focus::-webkit-calendar-picker-indicator, .input-circulo:active::-webkit-calendar-picker-indicator:active {
+    filter: invert(25%) sepia(100%) saturate(10000%) hue-rotate(10deg); /* Invertir el color del icono */
+    transition: .5s;
+    height: 40px;
+    font-size: 1.8rem;
+    
+  }
+
+  hr{
+    border: solid 1px white;
+  }
+

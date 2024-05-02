@@ -2,26 +2,115 @@
   ViewData["Title"] = "Ejercicios";
 }
 
+<link rel="stylesheet" href="~/css/style-ejercicios.css">
 <link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
 
-<div class="Contenedor">
-  <form>
-    <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Ejercicio aplicado
+<h5 class="display-4 titulo centrar">Ejercicio Fisico</h5>
+
+
+
+
+<div>
+
+ <div class="mb-2" >
+  <button type="button" onclick="GetEjerciciosFisicos()" class="btn btn-primary test">
+    Refrescar Tabla
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="dropdown-Ejercicio">
-  </ul>
+  <button type="button" class="btn btn-primary test" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
+    Nuevo Registro
+  </button>
 </div>
-    <div class="">
-    <input type="datetime-local" id="inicio" aria-label="hora de inicio">
-    <input type="datetime-local" id="fin" aria-label="hora de fin">
+
+  <table class="table mi-tabla table-bordered">
+  <thead>
+    <tr>
+      <th class="text-center">Ejercicio</th>
+      <th class="text-center">Inicio</th>
+      <th class="text-center">Fin</th>
+      <th class="text-center">Estado Emocional <br> al inicio</th>
+      <th class="text-center">Estado Emocional <br> al final</th>
+      <th class="text-center">Obserbaciones</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tbody-ejerciciosFisicos">
+  </tbody>
+</table>
+
+</div>
+
+
+
+<!-- Modal -->
+
+<div class="modal fade " id="ModalTipoEjercicio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content mi-modal">
+      <div class="modal-header">
+        <h5 class="modal-title titulo" id="ModalTitulo"></h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <div class="row">
+              <input type="hidden" id="EjercicioID" value="0">
+              <div class="mb-3 col-md-12 centrar flex-column">
+                <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
+                @Html.DropDownList("IdEjercicio", null, htmlAttributes: new
+                  {
+                    @class = "form-control input-transparent"
+                  })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="Inicio" class="form-label titulo">Inicio</label>
+                <input type="datetime-local" id="Inicio" class="form-control input-transparent input-circulo" onchange="expanded(this)"/>
+              </div>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="EstadoInicio" style="margin-right: 2.5rem;" class="form-label titulo">Estado Emocional Inicio</label>
+                @Html.DropDownList("EstadoInicio", null, htmlAttributes: new
+                  {
+                    @class = "form-control input-transparent"
+                  })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="Fin" class="form-label titulo">Fin</label>
+                <input type="datetime-local" id="Fin" class="form-control input-transparent input-circulo" onchange="expanded(this)"/>
+              </div>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="EstadoFin" style="margin-right: 2.5rem;" class="form-label titulo">Estado Emocional Fin</label>
+                @Html.DropDownList("EstadoFin", null, htmlAttributes: new { @class = "form-control input-transparent" })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-12">
+                <div class="mb-3 col-6 ce">
+                  <label for="Observaciones" class="form-label titulo">Obserbaciones</label>
+                  <textarea id="Observaciones" name="Observaciones" class="textarea-transparent"></textarea>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="LimpiarModal()" class="btn btn-secondary"
+          data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="GuardarRegistro()" class="btn btn-primary test">Guardar</button>
+      </div>
     </div>
-    <input type="list" id="estadoInicio">
-    <input type="list" id="estadoFin">
-
-  </form>
-
-  <script src="~/js/ejerciciosfisicos.js"></script>
-
+  </div>
 </div>
+
+
+
+
+<script src="~/js/ejerciciosfisicos.js"></script>

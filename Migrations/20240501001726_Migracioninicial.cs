@@ -176,6 +176,7 @@ namespace Proyecto1.Migrations
                 {
                     IdEjercicioFisico = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdEjercicio = table.Column<int>(type: "int", nullable: false),
                     Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EstadoInicio = table.Column<int>(type: "int", nullable: false),

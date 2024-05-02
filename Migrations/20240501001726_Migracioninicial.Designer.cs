@@ -12,7 +12,7 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240429034256_Migracioninicial")]
+    [Migration("20240501001726_Migracioninicial")]
     partial class Migracioninicial
     {
         /// <inheritdoc />
@@ -265,6 +265,9 @@ namespace Proyecto1.Migrations
 
                     b.Property<DateTime>("Fin")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdEjercicio")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Inicio")
                         .HasColumnType("datetime2");

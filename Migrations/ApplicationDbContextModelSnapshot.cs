@@ -263,6 +263,9 @@ namespace Proyecto1.Migrations
                     b.Property<DateTime>("Fin")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdEjercicio")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Inicio")
                         .HasColumnType("datetime2");
 

@@ -39,3 +39,11 @@ body {
   width: 10rem;
   height: 2rem;
 }
+.Centrar{
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.flex-column{
+  flex-direction: column;
+}
