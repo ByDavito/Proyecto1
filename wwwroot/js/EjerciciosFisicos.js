@@ -1,8 +1,10 @@
+window.onload = GetEjerciciosFisicos()
+
 
 function GetEjerciciosFisicos() {{
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/GetEjerciciosFisicos',
+        url: '../../EjerciciosFisicos/ListadoEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
         data: {  },
@@ -23,12 +25,12 @@ function GetEjerciciosFisicos() {{
                 
                 contenidoTabla += `
                 <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
-                    <td class="blur">${Ejercicio.idEjercicio}</td>
-                    <td class="blur">${Ejercicio.inicio}</td>
-                    <td class="blur">${Ejercicio.fin}</td>
-                    <td class="blur">${Ejercicio.estadoInicio}</td>
-                    <td class="blur">${Ejercicio.estadoFin}</td>
-                    <td class="blur">${Ejercicio.observaciones}</td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.ejercicioNombre}</p></div></td>
+                    <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.inicioString}</p></div></td>
+                    <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.observaciones}</p></div></td>
                     <td class="text-center">
                     <button type="button" class="btn btn-success"">
                     Editar
@@ -56,6 +58,8 @@ function GetEjerciciosFisicos() {{
         }
     });
 }}
+
+
 
 
 function GuardarRegistro(){

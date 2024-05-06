@@ -45,6 +45,42 @@ public class EjerciciosFisicosController : Controller
         return View();
     }
 
+    public JsonResult ListadoEjercicios(int? id)
+    {
+
+        List<VistaEjercicios> EjerciciosMostrar = new List<VistaEjercicios>();
+
+        var ejerciciosFisicos = _context.EjerciciosFisicos.ToList();
+
+            if (id != null)
+            {
+                ejerciciosFisicos = ejerciciosFisicos.Where(e => e.IdEjercicioFisico == id).ToList();
+            }
+
+            var Ejercicio = _context.Ejercicios.ToList();
+
+            foreach (var ejercicioFisico in ejerciciosFisicos)
+            {
+                var ejercicio = Ejercicio.Where(e => e.IdEjercicio == ejercicioFisico.IdEjercicio).Single();
+
+                var ejercicioMostrar = new VistaEjercicios
+                {
+                    IdEjercicioFisico = ejercicioFisico.IdEjercicioFisico,
+                    IdEjercicio = ejercicioFisico.IdEjercicio,
+                    EjercicioNombre = ejercicio.Nombre,
+                    InicioString = ejercicioFisico.Inicio.ToString("dd/MM/yyyy HH:mm"),
+                    FinString = ejercicioFisico.Fin.ToString("dd/MM/yyyy HH:mm"),
+                    EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoInicio),
+                    EstadoFin = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoFin),
+                    Observaciones = ejercicioFisico.Observaciones
+                };
+                EjerciciosMostrar.Add(ejercicioMostrar);
+            }
+
+            return Json(EjerciciosMostrar);
+    }
+
+
     public JsonResult GetEjerciciosFisicos(int? id)
     {
         var EjerciciosFisicos = _context.EjerciciosFisicos.ToList();

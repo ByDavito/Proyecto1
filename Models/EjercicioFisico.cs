@@ -15,6 +15,19 @@ namespace Proyecto1.Models
         public string? Observaciones { get; set; }
         public virtual Ejercicio Ejercicio { get; set; }
     }
+
+
+    public class VistaEjercicios{
+        public int IdEjercicioFisico { get; set; }
+        public int IdEjercicio { get; set; }
+        public string? EjercicioNombre { get; set; }
+        public string InicioString { get; set; }
+        public string FinString { get; set; }
+        public string? EstadoInicio { get; set; }
+        public string? EstadoFin { get; set; }
+        public string? Observaciones { get; set; }
+
+    }
     public enum EstadoEmocional{
         Feliz =1,
         Triste,

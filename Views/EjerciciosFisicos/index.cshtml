@@ -21,15 +21,15 @@
   </button>
 </div>
 
-  <table class="table mi-tabla table-bordered">
+<table class="table mi-tabla table-bordered">
   <thead>
     <tr>
-      <th class="text-center">Ejercicio</th>
-      <th class="text-center">Inicio</th>
-      <th class="text-center">Fin</th>
-      <th class="text-center">Estado Emocional <br> al inicio</th>
-      <th class="text-center">Estado Emocional <br> al final</th>
-      <th class="text-center">Obserbaciones</th>
+      <th class="text-center align-middle"><div class="centrar"><p>Ejercicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Inicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Fin</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Obserbaciones</p></div></th>
       <th></th>
       <th></th>
     </tr>
@@ -59,7 +59,7 @@
                 <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("IdEjercicio", null, htmlAttributes: new
                   {
-                    @class = "form-control input-transparent"
+                    @class = "select-transparent form-control input-transparent"
                   })
               </div>
 

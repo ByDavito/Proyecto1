@@ -1,3 +1,12 @@
+body{
+  background-image: url("../img/fondo-Ejercicios.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+}
+
+
+
 .table {
     width: 45rem;
     background-color: rgba(0, 0, 0, 0.389);
@@ -7,26 +16,40 @@
     border-radius: 15px;
 }
 
+.tbody-overflow {
+  max-height: 10px !important;
+  overflow-y: auto;
+}
 .table th,
 .table td {
-  border: 1px solid transparent; 
+  border-top: 1px solid transparent; 
+  border-left: 1px solid transparent; 
+  border-right: 1px solid transparent;
+  border-bottom: 2px solid rgba(184, 184, 184, 0.411);
   transition: .5s;
 }
 
+
+.fila-resaltar{
+  border-bottom: solid 1px rgb(138, 136, 136);
+}
 
 .fila-resaltar:hover {
   background-color: rgba(182, 178, 178, 0.486); 
   transition: .5s;
-  color: white;
+  color: white; 
 }
 
-.mi-tabla tr.ultima-fila td:first-child {
+.table tr.ultima-fila td:first-child {
   border-bottom-left-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
 
 /* Aplicar bordes redondeados solo al último elemento de la última fila */
-.mi-tabla tr.ultima-fila td:last-child {
+.table tr.ultima-fila td:last-child {
   border-bottom-right-radius: 15px; /* Ajustá el valor según lo que necesites */
+}
+.table tr.ultima-fila td {
+  border-bottom: solid transparent;
 }
 
 .mi-modal{
