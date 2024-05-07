@@ -39,9 +39,9 @@ public class EjerciciosFisicosController : Controller
         ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
 
-        var tipoEjercicios = _context.Ejercicios.ToList();
-        tipoEjercicios.Add(new Ejercicio{IdEjercicio = 0, Nombre = "[SELECCIONE...]"});
-        ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "IdEjercicio", "Nombre");
+        var tipoEjercicios = _context.TipoEjercicios.ToList();
+        tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
+        ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         return View();
     }
 
@@ -57,16 +57,16 @@ public class EjerciciosFisicosController : Controller
                 ejerciciosFisicos = ejerciciosFisicos.Where(e => e.IdEjercicioFisico == id).ToList();
             }
 
-            var Ejercicio = _context.Ejercicios.ToList();
+            var Ejercicio = _context.TipoEjercicios.ToList();
 
             foreach (var ejercicioFisico in ejerciciosFisicos)
             {
-                var ejercicio = Ejercicio.Where(e => e.IdEjercicio == ejercicioFisico.IdEjercicio).Single();
+                var ejercicio = Ejercicio.Where(e => e.TipoEjercicioID == ejercicioFisico.TipoEjercicioID).Single();
 
                 var ejercicioMostrar = new VistaEjercicios
                 {
                     IdEjercicioFisico = ejercicioFisico.IdEjercicioFisico,
-                    IdEjercicio = ejercicioFisico.IdEjercicio,
+                    TipoEjercicioID = ejercicioFisico.TipoEjercicioID,
                     EjercicioNombre = ejercicio.Nombre,
                     InicioString = ejercicioFisico.Inicio.ToString("dd/MM/yyyy HH:mm"),
                     FinString = ejercicioFisico.Fin.ToString("dd/MM/yyyy HH:mm"),
@@ -81,20 +81,20 @@ public class EjerciciosFisicosController : Controller
     }
 
 
-    public JsonResult GetEjerciciosFisicos(int? id)
+    public JsonResult GetEjerciciosFisicos(int? IdEjercicioFisico)
     {
         var EjerciciosFisicos = _context.EjerciciosFisicos.ToList();
 
-        if (id != null)
+        if (IdEjercicioFisico != null)
         {
-            EjerciciosFisicos = EjerciciosFisicos.Where(e => e.IdEjercicioFisico == id).ToList();
+            EjerciciosFisicos = EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).ToList();
         }
 
-        return Json(EjerciciosFisicos);
+        return Json(EjerciciosFisicos.ToList());
 
     }
 
-    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int IdEjercicio, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
+    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -102,7 +102,7 @@ public class EjerciciosFisicosController : Controller
         //     //INGRESA SI ESCRIBIO SI O SI
         // }         
         string resultado = "";
-        if (IdEjercicioFisico > 0)
+        if (IdEjercicioFisico != null)
         {
             //2- VERIFICAR SI ESTA EDITANDO O CREANDO NUEVO REGISTRO
             if (IdEjercicioFisico == 0)
@@ -110,7 +110,7 @@ public class EjerciciosFisicosController : Controller
                 var EjercicioFisico = new EjercicioFisico
                 {
                     IdEjercicioFisico = IdEjercicioFisico,
-                    // IdEjercicio = IdEjercicio,
+                    TipoEjercicioID = TipoEjercicioID,
                     Inicio = Inicio,
                     Fin = Fin,
                     EstadoInicio = EstadoInicio,
@@ -126,7 +126,8 @@ public class EjerciciosFisicosController : Controller
                 if (ejercicioFisicoEditar != null)
                 {
                     var existeEjercicioFisico = _context.EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).Count();
-                    if (existeEjercicioFisico == 0) {
+                    if (existeEjercicioFisico != null) {
+                        ejercicioFisicoEditar.TipoEjercicioID = TipoEjercicioID;
                         ejercicioFisicoEditar.Inicio = Inicio;
                         ejercicioFisicoEditar.Fin = Fin;
                         ejercicioFisicoEditar.EstadoInicio = EstadoInicio;

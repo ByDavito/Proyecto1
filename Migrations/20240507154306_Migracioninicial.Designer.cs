@@ -12,7 +12,7 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240501001726_Migracioninicial")]
+    [Migration("20240507154306_Migracioninicial")]
     partial class Migracioninicial
     {
         /// <inheritdoc />
@@ -227,25 +227,6 @@ namespace Proyecto1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Proyecto1.Models.Ejercicio", b =>
-                {
-                    b.Property<int>("IdEjercicio")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEjercicio"));
-
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdEjercicio");
-
-                    b.ToTable("Ejercicios");
-                });
-
             modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
                 {
                     b.Property<int>("IdEjercicioFisico")
@@ -253,9 +234,6 @@ namespace Proyecto1.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEjercicioFisico"));
-
-                    b.Property<int>("EjercicioIdEjercicio")
-                        .HasColumnType("int");
 
                     b.Property<int>("EstadoFin")
                         .HasColumnType("int");
@@ -266,20 +244,39 @@ namespace Proyecto1.Migrations
                     b.Property<DateTime>("Fin")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdEjercicio")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Inicio")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TipoEjercicioID")
+                        .HasColumnType("int");
+
                     b.HasKey("IdEjercicioFisico");
 
-                    b.HasIndex("EjercicioIdEjercicio");
+                    b.HasIndex("TipoEjercicioID");
 
                     b.ToTable("EjerciciosFisicos");
+                });
+
+            modelBuilder.Entity("Proyecto1.Models.TipoEjercicio", b =>
+                {
+                    b.Property<int>("TipoEjercicioID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TipoEjercicioID"));
+
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TipoEjercicioID");
+
+                    b.ToTable("TipoEjercicios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -335,16 +332,16 @@ namespace Proyecto1.Migrations
 
             modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
                 {
-                    b.HasOne("Proyecto1.Models.Ejercicio", "Ejercicio")
+                    b.HasOne("Proyecto1.Models.TipoEjercicio", "TipoEjercicio")
                         .WithMany("EjerciciosFisicos")
-                        .HasForeignKey("EjercicioIdEjercicio")
+                        .HasForeignKey("TipoEjercicioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ejercicio");
+                    b.Navigation("TipoEjercicio");
                 });
 
-            modelBuilder.Entity("Proyecto1.Models.Ejercicio", b =>
+            modelBuilder.Entity("Proyecto1.Models.TipoEjercicio", b =>
                 {
                     b.Navigation("EjerciciosFisicos");
                 });

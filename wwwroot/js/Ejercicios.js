@@ -25,12 +25,12 @@ function GetEjercicios() {{
                 <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
                     <td class="blur">${Ejercicio.nombre}</td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.idEjercicio})">
+                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.tipoEjercicioID})">
                     Editar
                     </button>
                     </td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.idEjercicio})">
+                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.tipoEjercicioID})">
                     Eliminar
                     </button>
                     </td>
@@ -80,13 +80,13 @@ function NuevoRegistro(){
     $("#ModalTitulo").text("Nuevo Tipo de Ejercicio");
 }
 
-function AbrirModalEditar(idEjercicio){
+function AbrirModalEditar(tipoEjercicioID){
     $.ajax({
         // la URL para la petición
         url: '../../Ejercicios/GetEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjercicio: idEjercicio},
+        data: { tipoEjercicioID: tipoEjercicioID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -94,8 +94,11 @@ function AbrirModalEditar(idEjercicio){
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
         success: function (Ejercicios) {
+
+            console.log(Ejercicios);
             let ejercicio = Ejercicios[0];
-            document.getElementById("TipoEjercicioID").value = idEjercicio;
+            
+            document.getElementById("TipoEjercicioID").value = tipoEjercicioID;
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");
             document.getElementById("descripcion").value = ejercicio.nombre;
             $("#ModalTipoEjercicio").modal("show");
@@ -112,7 +115,7 @@ function AbrirModalEditar(idEjercicio){
 
 function GuardarRegistro(){
     //GUARDAMOS EN UNA VARIABLE LO ESCRITO EN EL INPUT DESCRIPCION
-    let idEjercicio = document.getElementById("TipoEjercicioID").value;
+    let tipoEjercicioID = document.getElementById("TipoEjercicioID").value;
     let nombre = document.getElementById("descripcion").value;
     let eliminado = false
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
@@ -123,7 +126,7 @@ function GuardarRegistro(){
         url: '../../Ejercicios/GuardarTipoEjercicio',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjercicio: idEjercicio, nombre: nombre},
+        data: { tipoEjercicioID: tipoEjercicioID, nombre: nombre},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -147,13 +150,14 @@ function GuardarRegistro(){
     });    
 }
 
-function EliminarRegistro(idEjercicio){
+function EliminarRegistro(tipoEjercicioID){
+    console.log(tipoEjercicioID)
     $.ajax({
         // la URL para la petición
         url: '../../Ejercicios/EliminarTipoEjercicio',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjercicio: idEjercicio},
+        data: { tipoEjercicioID: tipoEjercicioID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta

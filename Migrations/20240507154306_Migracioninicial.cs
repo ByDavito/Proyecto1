@@ -51,17 +51,17 @@ namespace Proyecto1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ejercicios",
+                name: "TipoEjercicios",
                 columns: table => new
                 {
-                    IdEjercicio = table.Column<int>(type: "int", nullable: false)
+                    TipoEjercicioID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Eliminado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ejercicios", x => x.IdEjercicio);
+                    table.PrimaryKey("PK_TipoEjercicios", x => x.TipoEjercicioID);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,22 +176,21 @@ namespace Proyecto1.Migrations
                 {
                     IdEjercicioFisico = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdEjercicio = table.Column<int>(type: "int", nullable: false),
+                    TipoEjercicioID = table.Column<int>(type: "int", nullable: false),
                     Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EstadoInicio = table.Column<int>(type: "int", nullable: false),
                     EstadoFin = table.Column<int>(type: "int", nullable: false),
-                    Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EjercicioIdEjercicio = table.Column<int>(type: "int", nullable: false)
+                    Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EjerciciosFisicos", x => x.IdEjercicioFisico);
                     table.ForeignKey(
-                        name: "FK_EjerciciosFisicos_Ejercicios_EjercicioIdEjercicio",
-                        column: x => x.EjercicioIdEjercicio,
-                        principalTable: "Ejercicios",
-                        principalColumn: "IdEjercicio",
+                        name: "FK_EjerciciosFisicos_TipoEjercicios_TipoEjercicioID",
+                        column: x => x.TipoEjercicioID,
+                        principalTable: "TipoEjercicios",
+                        principalColumn: "TipoEjercicioID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -235,9 +234,9 @@ namespace Proyecto1.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EjerciciosFisicos_EjercicioIdEjercicio",
+                name: "IX_EjerciciosFisicos_TipoEjercicioID",
                 table: "EjerciciosFisicos",
-                column: "EjercicioIdEjercicio");
+                column: "TipoEjercicioID");
         }
 
         /// <inheritdoc />
@@ -268,7 +267,7 @@ namespace Proyecto1.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Ejercicios");
+                name: "TipoEjercicios");
         }
     }
 }

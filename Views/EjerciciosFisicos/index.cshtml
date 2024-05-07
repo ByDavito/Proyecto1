@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="~/css/style-ejercicios.css">
 <link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
 
-<h5 class="display-4 titulo centrar">Ejercicio Fisico</h5>
+<h5 class="display-4 titulo centrar" style="text-shadow: 0 0 15px black;">Ejercicio Fisico</h5>
 
 
 
@@ -54,7 +54,7 @@
         <form>
           <div class="mb-3">
             <div class="row">
-              <input type="hidden" id="EjercicioID" value="0">
+              <input type="hidden" id="EjercicioFisicoID" value="0">
               <div class="mb-3 col-md-12 centrar flex-column">
                 <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("IdEjercicio", null, htmlAttributes: new

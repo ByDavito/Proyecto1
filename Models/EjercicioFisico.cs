@@ -7,19 +7,19 @@ namespace Proyecto1.Models
     public class EjercicioFisico{
         [Key]
         public int IdEjercicioFisico { get; set; }
-        public int IdEjercicio { get; set; }
+        public int TipoEjercicioID { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }
         public EstadoEmocional EstadoInicio { get; set; }
         public EstadoEmocional EstadoFin { get; set; }
         public string? Observaciones { get; set; }
-        public virtual Ejercicio Ejercicio { get; set; }
+        public virtual TipoEjercicio TipoEjercicio { get; set; }
     }
 
 
     public class VistaEjercicios{
         public int IdEjercicioFisico { get; set; }
-        public int IdEjercicio { get; set; }
+        public int TipoEjercicioID { get; set; }
         public string? EjercicioNombre { get; set; }
         public string InicioString { get; set; }
         public string FinString { get; set; }

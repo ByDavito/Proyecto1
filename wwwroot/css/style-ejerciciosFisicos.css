@@ -25,7 +25,7 @@ body{
 }
 
 #tbody-ejerciciosFisicos {
-  max-height: 45rem;
+  max-height: 1rem;
   overflow-y: auto;
 }
 
