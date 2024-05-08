@@ -32,15 +32,14 @@ function GetEjerciciosFisicos() {{
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
-                    <td class="borde-td align-middle" style="word-break: break-all;"><div><p>${Ejercicio.observaciones}</p></div></td>
+                    <td class="borde-td align-middle" style=" max-width: 12rem;"><div><p>${Ejercicio.observaciones}</p></div></td>
                     <td class="text-center">
                     <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">
-                    Editar
+                    <i class="bi bi-pencil-square"></i>
                     </button>
                     </td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.idEjercicioFisico})">
-                    Eliminar
+                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.idEjercicioFisico})"><i class="bi bi-trash3"></i<
                     </button>
                     </td>
                 </tr>
@@ -61,7 +60,7 @@ function GetEjerciciosFisicos() {{
     });
 }}
 
-window.onload = GetEjerciciosFisicos()
+window.onload = GetEjerciciosFisicos
 
 function NuevoRegistro(){
     $("#ModalTitulo").text("Nuevo Tipo de Ejercicio");
@@ -123,8 +122,6 @@ function GuardarRegistro(){
 }
 
 function AbrirModalEditar(idEjerciciofisico){
-
-    console.log(idEjerciciofisico)
     $.ajax({
         // la URL para la petición
         url: '../../EjerciciosFisicos/GetEjerciciosFisicos',
@@ -138,7 +135,6 @@ function AbrirModalEditar(idEjerciciofisico){
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
         success: function (EjercicioFisico) {
-            console.log("ID del ejercicio físico a editar:", idEjerciciofisico);
             let ejercicio = EjercicioFisico[0];
             document.getElementById("EjercicioFisicoID").value = idEjerciciofisico;
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");

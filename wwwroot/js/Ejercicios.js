@@ -1,4 +1,4 @@
-window.onload = GetEjercicios()
+window.onload = GetEjercicios
 
 function GetEjercicios() {{
     $.ajax({

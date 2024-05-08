@@ -123,10 +123,9 @@ public class EjerciciosFisicosController : Controller
 
             else{
                 var ejercicioFisicoEditar = _context.EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).SingleOrDefault();
-                if (ejercicioFisicoEditar != null)
+                
                 {
-                    var existeEjercicioFisico = _context.EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).Count();
-                    if (existeEjercicioFisico != null) {
+                    var existeEjercicioFisico = _context.EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).Count(); {
                         ejercicioFisicoEditar.TipoEjercicioID = TipoEjercicioID;
                         ejercicioFisicoEditar.Inicio = Inicio;
                         ejercicioFisicoEditar.Fin = Fin;
