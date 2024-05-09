@@ -4,9 +4,11 @@ using Proyecto1.Models;
 using Proyecto1.Data;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto1.Controllers;
 
+[Authorize]
 public class EjerciciosFisicosController : Controller 
 {
     private ApplicationDbContext _context;
@@ -39,8 +41,9 @@ public class EjerciciosFisicosController : Controller
         ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
 
-        var tipoEjercicios = _context.TipoEjercicios.ToList();
+        var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
+
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         return View();
     }

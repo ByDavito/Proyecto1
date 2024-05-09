@@ -2,7 +2,41 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/style-privacy.css">
+
+<div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="privacy-logo logo " asp-controller="Home" asp-action="Index"></div>
+    <div class="privacy-logo-text logo-text " href=""></div>
+</div>
+
+
+
+<div class="contenedor-fondo">
+<div class="contenedor-texto">
+    <h3 class="titulo text-center">¡Bienvenido a FitLogg!</h3>
+<p class="titulo" style="word-wrap: break-word;">En FitLogg, estamos comprometidos con tu bienestar y <br>
+  tu estilo de vida activo. <br> 
+    Nuestra app te ayuda a registrar <br>
+    tus rutinas de ejercicio y a <br>
+  mantener un seguimiento detallado de tu progreso. <br> 
+    ¡Es hora de alcanzar tus metas fitness como nunca antes!</p>
+
+<h3 class="titulo">¿Cómo funciona?</h3>
+<p class="titulo" style="word-wrap: break-word;">
+Es fácil. Simplemente cargá tus ejercicios habituales y <br> 
+ luego registrá los que hacés cada día.<br> 
+ Podrás visualizar tu historial de entrenamiento, <br> 
+ establecer objetivos y recibir recomendaciones <br> 
+ personalizadas para optimizar tu rendimiento.
+</p>
+</div>
+
+<div class="contenedor-botones">
+    <button class=" test btn-acciones">
+        <a asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+    </button>
+    <button class=" test btn-acciones">
+        <a  asp-area="Identity" asp-page="/Account/Register">Registrate!</a>
+    </button>
+</div>
 </div>

@@ -33,13 +33,13 @@ function GetEjerciciosFisicos() {{
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
                     <td class="borde-td align-middle" style=" max-width: 12rem;"><div><p>${Ejercicio.observaciones}</p></div></td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">
+                    <td class="align-middle">
+                    <button type="button" class="btn btn-icono edit" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">
                     <i class="bi bi-pencil-square"></i>
                     </button>
                     </td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.idEjercicioFisico})"><i class="bi bi-trash3"></i<
+                    <td class="align-middle">
+                    <button type="button" class="btn btn-icono delete" onclick="EliminarRegistro(${Ejercicio.idEjercicioFisico})"><i class="bi bi-trash3"></i<
                     </button>
                     </td>
                 </tr>
@@ -83,8 +83,12 @@ function GuardarRegistro(){
         url: '../../EjerciciosFisicos/GuardarEjercicioFisico',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjerciciofisico: idEjerciciofisico,tipoEjercicioID: tipoEjercicioID, 
-                inicio: inicio, fin: fin, estadoInicio: estadoInicio, estadoFin: estadoFin, 
+        data: { idEjerciciofisico: idEjerciciofisico,
+                tipoEjercicioID: tipoEjercicioID, 
+                inicio: inicio, 
+                fin: fin, 
+                estadoInicio: estadoInicio, 
+                estadoFin: estadoFin, 
                 observaciones: observaciones},
         // especifica si será una petición POST o GET
         type: 'POST',
@@ -95,7 +99,7 @@ function GuardarRegistro(){
         success: function (resultado) {
 
             if(resultado != ""){
-                alert(resultado);
+                Swal.fire(resultado);
             }
             GetEjerciciosFisicos();
         },
@@ -185,6 +189,31 @@ function EliminarRegistro(IdEjercicioFisico){
         }
     });    
 
+}
+
+function EliminarRegistro(ejercicioFisicoID){
+    Swal.fire
+    ({
+        title: "¿Estas seguro?",
+        text: "Este dato se eliminará!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "No, cancelar!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borrar!"
+    })
+    .then((result) => 
+    {
+        if (result.isConfirmed) {
+        Swal.fire({
+            title: "Borrado!",
+            text: "Tu registro ha sido eliminado.",
+            icon: "success",
+        });
+        EliminarRegistro(ejercicioFisicoID)
+        }
+    });
 }
 
 

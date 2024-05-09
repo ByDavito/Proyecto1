@@ -15,11 +15,12 @@
 <body>
 
 
-
-
   <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand titulo" style="color: white;" href="#">FitLog</a>
+      <a class="d-flex align-items-center justify-content-start" >
+        <div class="logo" asp-controller="Home" asp-action="Index"></div>
+        <div class="logo-text" href=""></div>
+      </a>
       <div class="background">
         <button class="menu__icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
           aria-controls="offcanvasNavbar">
@@ -35,8 +36,6 @@
   <div class="offcanvas offcanvas-end mi-offcanvas" tabindex="-1" id="offcanvasNavbar"
     aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
-      <partial name="_LoginPartial" />
-
     </div>
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -54,30 +53,36 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos"
-            asp-action="Index">Ejercicios</a>
+          <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos" asp-action="Index">Ejercicios</a>
         </li>
       </ul>
 
     </div>
   </div>
-
-
-
-
+  
 
   <div class="container centrar">
     <main role="main" class="pb-3">
       @RenderBody()
     </main>
   </div>
+  }
+
+ 
+    <div class="container centrar">
+    <main role="main" class="pb-3">
+      @RenderBody()
+    </main>
+  </div>
+  
 
   <footer class="footer text-muted">
     <div class="container">
-      &copy; 2024 - FitLog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+      &copy; 2024 - FitLogg - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
   </footer>
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>
   @await RenderSectionAsync("Scripts", required: false)

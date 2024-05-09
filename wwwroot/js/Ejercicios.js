@@ -20,32 +20,23 @@ function GetEjercicios() {{
             //$("#tbody-tipoejercicios").empty();
             let contenidoTabla = ``;
 
-            $.each(Ejercicios, function (Index, Ejercicio) {  
+            $.each(Ejercicios, function (Index, Ejercicio) {  if (Ejercicio.eliminado == false){
                 contenidoTabla += `
                 <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
-                    <td class="blur">${Ejercicio.nombre}</td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.tipoEjercicioID})">
-                    Editar
+                    <td class="align-middle" style="font-size: 1.3rem">${Ejercicio.nombre}</td>
+                    <td class="align-middle">
+                    <button type="button" class="btn btn-icono edit" onclick="AbrirModalEditar(${Ejercicio.tipoEjercicioID})">
+                    <i class="bi bi-pencil-square "></i>
                     </button>
                     </td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.tipoEjercicioID})">
-                    Eliminar
+                    <td class="align-middle">
+                    <button type="button" class="btn btn-icono delete" onclick="ValidacionEliminar(${Ejercicio.tipoEjercicioID})">
+                    <i class="bi bi-trash3"></i>
                     </button>
                     </td>
                 </tr>
              `;
-            
-
-                //  $("#tbody-tipoejercicios").append(`
-                //     <tr>
-                //         <td>${tipoDeEjercicio.descripcion}</td>
-                //         <td class="text-center"></td>
-                //         <td class="text-center"></td>
-                //     </tr>
-                //  `);
-            });
+        }});
 
             document.getElementById("tbody-tipoejercicios").innerHTML = contenidoTabla;
 
@@ -120,7 +111,7 @@ function GuardarRegistro(){
     let eliminado = false
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
     //LUEGO POR OTRO LADO HACER VERIFICACIONES DE DATOS EN EL BACK, SI EXISTE EL ELEMENTO SI NECESITAMOS LA BASE DE DATOS.
-    console.log(nombre);
+   
     $.ajax({
         // la URL para la petición
         url: '../../Ejercicios/GuardarTipoEjercicio',
@@ -136,7 +127,7 @@ function GuardarRegistro(){
         success: function (resultado) {
 
             if(resultado != ""){
-                alert(resultado);
+                Swal.fire(resultado);
             }
             GetEjercicios();
         },
@@ -150,11 +141,13 @@ function GuardarRegistro(){
     });    
 }
 
+
+
 function EliminarRegistro(tipoEjercicioID){
     console.log(tipoEjercicioID)
     $.ajax({
         // la URL para la petición
-        url: '../../Ejercicios/EliminarTipoEjercicio',
+        url: '../../Ejercicios/DesactivarTipoEjercicio',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
         data: { tipoEjercicioID: tipoEjercicioID},
@@ -176,4 +169,29 @@ function EliminarRegistro(tipoEjercicioID){
         }
     });    
 
+}
+
+function ValidacionEliminar(ejercicioFisicoID){
+    Swal.fire
+    ({
+        title: "¿Estas seguro?",
+        text: "Este dato se eliminará!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "No, cancelar!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borrar!"
+    })
+    .then((result) => 
+    {
+        if (result.isConfirmed) {
+        Swal.fire({
+            title: "Borrado!",
+            text: "Tu registro ha sido eliminado.",
+            icon: "success",
+        });
+        EliminarRegistro(ejercicioFisicoID)
+        }
+    });
 }

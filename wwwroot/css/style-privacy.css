@@ -1,0 +1,75 @@
+.privacy-logo{
+    margin-bottom: 1rem;
+    height: 14rem;
+    width: 20.5rem;
+    opacity: 0.8;
+}
+
+.privacy-logo-text{
+    margin-top: 1rem;
+    margin-left: 15rem;
+    height: 5rem;
+    width: 16.64rem;
+    opacity: 0.8;
+}
+
+p {
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 0 0 3px black;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: start;
+    width: 40vw;
+}
+
+.contenedor-fondo{
+    height: 50Vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(0, 0, 0, 0.432);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.contenedor-texto {
+    height: 100%;
+    width: 25.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    
+}
+
+.contenedor-texto p{
+    word-break: break-all;
+    overflow-wrap: break-word;
+
+}
+
+.contenedor-botones{
+    height: 100%;
+    width: 34vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-acciones{
+    margin: 2rem;
+    height: 5rem;
+    width: 18rem;
+    border-radius: 15px;
+    color: white;
+}
+
+.btn-acciones a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px white;
+}

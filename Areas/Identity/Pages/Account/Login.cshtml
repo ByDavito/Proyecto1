@@ -15,38 +15,33 @@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3 ">
-                    <input asp-for="Input.Email" class="form-control input-transparent" autocomplete="username" aria-required="true" placeholder="Email" />
+                    <input asp-for="Input.Email" class="form-control input-transparent titulo" autocomplete="username" aria-required="true" placeholder="Email" />
                     <label asp-for="Input.Email" class="form-label text-shadow">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control input-transparent" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                    <input asp-for="Input.Password" class="form-control input-transparent titulo" autocomplete="current-password" aria-required="true" placeholder="Password" />
                     <label asp-for="Input.Password" class="form-label text-shadow">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label text-shadow">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
                 </div>
                 <div>
                     <button id="login-submit" type="submit" class="w-100 test btn btn-lg btn-primary">Log in</button>
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword"> haz olvidado tu contraseña?</a>?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Resgistrate</a>
                     </p>
-                    <p>
+                    @* <p>
                         <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                    </p> *@
                 </div>
             </form>
         </section>
     </div>
+</div>
     @* <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to log in.</h3>

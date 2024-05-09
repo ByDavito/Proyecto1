@@ -10,9 +10,27 @@ body{
 .btn-icono{
   background-color: transparent;
   border: none;
-  color: rgba(198, 8, 8, 0.524);
+  color: rgba(250, 250, 250, 0.925);
   text-shadow: 0 0 5px;
   font-size: 2.5rem;
+}
+
+.btn-icono:hover{
+  color: rgba(31, 151, 250, 0.925);
+  text-shadow: 0 0 5px rgba(6, 66, 121, 0.925);
+  transition: .5s; 
+}
+
+button.delete:hover{
+  transition: .5s;
+  color: rgba(216, 20, 20, 0.925);
+  text-shadow: 0 0 5px rgba(121, 6, 6, 0.925);
+}
+
+button.edit:hover{
+  transition: .5s;
+  color: rgba(45, 207, 72, 0.925);
+  text-shadow: 0 0 5px rgba(32, 139, 50, 0.925);
 }
 
 
@@ -83,4 +101,13 @@ body{
 .mi-modal{
   background-color: rgba(0, 0, 0, 0.389);
     backdrop-filter: blur(10px);
+}
+
+
+input.input-transparent{
+  min-width: 300px;
+}
+
+input.input-transparent::placeholder {
+  color: rgb(245, 245, 245);
 }

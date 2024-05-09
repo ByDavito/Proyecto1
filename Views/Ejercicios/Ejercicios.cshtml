@@ -3,6 +3,7 @@
 }
 
 <link rel="stylesheet" href="~/css/style-ejercicios.css">
+<link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
 
 <div class="text-center">
   <h1 class="display-4 titulo">Tipo de Ejercicios</h1>
@@ -10,11 +11,11 @@
 
 <!-- Button trigger modal -->
 <div class="mb-2">
-  <button type="button" onclick="GetEjercicios()" class="btn btn-primary test">
-    Refrescar Tabla
+  <button type="button" onclick="GetEjercicios()" class="btn btn-icono">
+    <i class="bi bi-arrow-counterclockwise"></i>
   </button>
-  <button type="button" class="btn btn-primary test" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
-    Nuevo Registro
+  <button type="button" class="btn btn-icono" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
+    <i class="bi bi-plus-circle"></i>
   </button>
 </div>
 
@@ -46,7 +47,7 @@
 </div>
 
 <div id="div-tipoejercicios">
-<table class="table table-bordered">
+<table class="table ">
   <thead>
     <tr>
       <th style="">Descripción</th>
@@ -54,7 +55,7 @@
       <th style="width: 70px;"></th>
     </tr>
   </thead>
-  <tbody id="tbody-tipoejercicios" class="tbody-overflow">
+  <tbody id="tbody-tipoejercicios" class="tbody-overflow ">
   </tbody>
 </table>
 </div>

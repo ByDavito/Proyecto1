@@ -43,6 +43,27 @@ body::before {
   border-bottom: 1px solid red;
 }
 
+.logo{
+  background-image: url("../img/Logo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 4.5rem;
+  height: 3rem;
+  filter: drop-shadow(0 0 5px red);
+  opacity: 0.7;
+}
+
+.logo-text{
+  background-image: url("../img/fitlogg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 6.67rem;
+  height: 2rem;
+  margin-left: 0.6rem;
+  filter: drop-shadow(0 0 5px white);
+  opacity: 0.7;
+}
+
 
 .offcanvas {
   z-index: 1050; /* Aseguramos que esté por encima del navbar */
@@ -284,3 +305,18 @@ button {
     border-top: solid 1px red;
 }
 
+div:where(.swal2-container) div:where(.swal2-popup) {
+  display: none;
+  position: relative;
+  box-sizing: border-box;
+  grid-template-columns: minmax(0, 100%);
+  width: 32em;
+  max-width: 100%;
+  padding: 0 0 1.25em;
+  border: none;
+  border-radius: 5px;
+  background: #f30404;
+  color: #545454;
+  font-family: inherit;
+  font-size: 1rem;
+}

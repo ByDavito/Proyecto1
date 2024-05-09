@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto1.Controllers;
-
+[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -14,15 +14,16 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+ public IActionResult Privacy()
+    {
+        return View();
+    }
+    
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
     public IActionResult Ejercicios()
     {

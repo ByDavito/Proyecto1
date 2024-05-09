@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
 using Proyecto1.Data;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto1.Controllers;
-
+[Authorize]
 public class EjerciciosController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -32,12 +34,12 @@ public class EjerciciosController : Controller
         return Json(TipoEjercicios.ToList());
     }
 
-   
 
 
-    public JsonResult GuardarTipoEjercicio(string nombre, int TipoEjercicioID)
+
+    public JsonResult GuardarTipoEjercicio(string nombre, int TipoEjercicioID, bool Eliminado)
     {
-     //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
+        //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
         // {
         //     //INGRESA SI ESCRIBIO SI O SI
@@ -72,12 +74,24 @@ public class EjerciciosController : Controller
                     _context.Add(tipoEjercicio);
                     _context.SaveChanges();
                 }
+                else if (existeTipoEjercicio == _context.TipoEjercicios.Where(t => t.Nombre == nombre && t.Eliminado == true).Count())
+{
+                    var activarEjercicio = _context.TipoEjercicios.FirstOrDefault(t => t.Nombre == nombre && t.Eliminado == true);
+                    if (activarEjercicio != null)
+                        {
+                            activarEjercicio.Eliminado = false;
+                            _context.SaveChanges();
+                        }
+}
+
                 else
                 {
-                    resultado = "YA EXISTE UN REGISTRO CON LA MISMA DESCRIPCIÓN";
+                    resultado = "Ya existe un registro con el mismo nombre";   
                 }
+
+
             }
-            else
+
             {
                 //QUIERE DECIR QUE VAMOS A EDITAR EL REGISTRO
                 var tipoEjercicioEditar = _context.TipoEjercicios.Where(t => t.TipoEjercicioID == TipoEjercicioID).SingleOrDefault();
@@ -93,20 +107,20 @@ public class EjerciciosController : Controller
                     }
                     else
                     {
-                        resultado = "YA EXISTE UN REGISTRO CON LA MISMA DESCRIPCIÓN";
+                        resultado = "Ya existe un registro con el mismo nombre";
                     }
                 }
             }
         }
         else
         {
-            resultado = "DEBE INGRESAR UNA DESCRIPCIÓN.";
+            resultado = "Debe esbribir un nombre.";
         }
 
         return Json(resultado);
     }
 
-public JsonResult EliminarTipoEjercicio(int TipoEjercicioID)
+    public JsonResult EliminarTipoEjercicio(int TipoEjercicioID)
     {
         var Ejercicio = _context.TipoEjercicios.Find(TipoEjercicioID);
         _context.Remove(Ejercicio);
@@ -115,7 +129,26 @@ public JsonResult EliminarTipoEjercicio(int TipoEjercicioID)
         return Json(true);
     }
 
+    public JsonResult DesactivarTipoEjercicio(int TipoEjercicioID)
+    {
+        var Ejercicio = _context.TipoEjercicios.Find(TipoEjercicioID);
+        if (Ejercicio.Eliminado == false)
+        {
+            Ejercicio.Eliminado = true;
+            _context.SaveChanges();
+            return Json(true);
+        }
+        else
+        {
+            Ejercicio.Eliminado = false;
+        }
+        _context.SaveChanges();
+        return Json(true);
+
+    }
+
 }
+
 
 
 
