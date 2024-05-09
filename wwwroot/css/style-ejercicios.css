@@ -7,6 +7,14 @@ body{
 
 
 
+.btn-icono{
+  background-color: transparent;
+  border: none;
+  color: rgba(198, 8, 8, 0.524);
+  text-shadow: 0 0 5px;
+  font-size: 2.5rem;
+}
+
 
 .table {
     width: 45rem;
@@ -16,19 +24,38 @@ body{
     text-shadow: 0 0 5px;
     border-radius: 15px;
 }
-
-.tbody-overflow {
-  max-height: 10px !important;
-  overflow-y: auto;
-}
-.table th,
-.table td {
+.table th  {
   border-top: 1px solid transparent; 
   border-left: 1px solid transparent; 
   border-right: 1px solid transparent;
-  border-bottom: 2px solid rgba(184, 184, 184, 0.411);
+  border-bottom: 2px solid #d00f0f;
+}
+
+.tbody-overflow {
+
+  max-height: 10px !important;
+  overflow-y: auto;
+}
+.table>:not(:last-child)>:last-child>* {
+  border-bottom: 2px solid rgba(200, 4, 4, 0.411);
+}
+
+.table  td {
+  border-top: 1px solid transparent; 
+  border-left: 1px solid transparent; 
+  border-right: 1px solid transparent;
+  border-bottom: 2px solid rgba(200, 4, 4, 0.411);
   transition: .5s;
 }
+
+.modal-header{
+  border-bottom: solid 1px #d00f0f;
+}
+
+.modal-footer{
+  border-top: solid 1px #d00f0f;
+}
+
 
 
 .fila-resaltar{

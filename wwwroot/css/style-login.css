@@ -33,10 +33,7 @@
     background: rgba(0, 0, 0, 0.389);
     z-index: -1;
   }
-.footer{
-    background-color: rgba(0, 0, 0, 0.389);
-      backdrop-filter: blur(10px);
-}
+
 
 .input-transparent{
     background-color: rgba(255, 255, 255, 0.245);
