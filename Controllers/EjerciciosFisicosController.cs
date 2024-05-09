@@ -122,6 +122,7 @@ public class EjerciciosFisicosController : Controller
                 };
                 _context.Add(EjercicioFisico);
                 _context.SaveChanges();
+                resultado = "Se ha creado el registro";
             }   
 
             else{
@@ -136,6 +137,7 @@ public class EjerciciosFisicosController : Controller
                         ejercicioFisicoEditar.EstadoFin = EstadoFin;
                         ejercicioFisicoEditar.Observaciones = Observaciones;
                         _context.SaveChanges();
+                        resultado = "Se ha creado el registro";
                     }
                 }
             }

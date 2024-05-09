@@ -104,10 +104,6 @@ button.edit:hover{
 }
 
 
-input.input-transparent{
-  min-width: 300px;
-}
-
 input.input-transparent::placeholder {
   color: rgb(245, 245, 245);
 }

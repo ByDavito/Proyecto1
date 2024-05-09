@@ -73,6 +73,7 @@ public class EjerciciosController : Controller
                     };
                     _context.Add(tipoEjercicio);
                     _context.SaveChanges();
+                    resultado = "Se ha creado el nuevo ejercicio";
                 }
                 else if (existeTipoEjercicio == _context.TipoEjercicios.Where(t => t.Nombre == nombre && t.Eliminado == true).Count())
 {
@@ -104,6 +105,7 @@ public class EjerciciosController : Controller
                         //QUIERE DECIR QUE EL ELEMENTO EXISTE Y ES CORRECTO ENTONCES CONTINUAMOS CON EL EDITAR
                         tipoEjercicioEditar.Nombre = nombre;
                         _context.SaveChanges();
+                        resultado = "Se ha editado el ejercicio";
                     }
                     else
                     {
