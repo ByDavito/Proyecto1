@@ -7,6 +7,9 @@
   <title>@ViewData["Title"] - Proyecto1</title>
   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="~/lib/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="~/lib/fontawesome/css/brands.min.css">
+  <link rel="stylesheet" href="~/lib/fontawesome/css/solid.min.css">
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/Proyecto1.styles.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/css/style-login.css" asp-append-version="true">
@@ -15,23 +18,24 @@
 <body>
 
 
-  <nav class="navbar bg-body-tertiary fixed-top">
+  <nav class="navbar fixed-top">
     <div class="container-fluid">
       <a class="d-flex align-items-center justify-content-start" >
         <div class="logo" asp-controller="Home" asp-action="Index"></div>
         <div class="logo-text" href=""></div>
       </a>
-      <div class="background navbar-menu-icon">
-        <button class="menu__icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar">
+         <div class="background">
+        <button class="menu__icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" id="botonMenu" aria-controls="offcanvasNavbar" onclick="animacionMenu()">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-
     </div>
   </nav>
+
+
+
 
   <div class="offcanvas offcanvas-end mi-offcanvas" tabindex="-1" id="offcanvasNavbar"
     aria-labelledby="offcanvasNavbarLabel">
@@ -40,21 +44,30 @@
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <li class="nav-item">
-          <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i
-              class="bi bi-bar-chart-steps"></i> Graficos</a>
+          <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-chart-column nav-iconos" style="color: #ffffff;"></i> Graficos</a>
+          <span></span>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+           <span></span>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-light" asp-area="" asp-controller="Ejercicios" asp-action="Ejercicios">Tipo de
+          <a class="nav-link text-light" asp-area="" asp-controller="Ejercicios" asp-action="Ejercicios"> <i class="fa-solid fa-dumbbell nav-iconos" style="color: #ffffff;"></i>
+          Tipo de Ejercicios</a>
+          <span></span>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos" asp-action="Index"><i class="fa-solid fa-person-biking nav-iconos" style="color: #ffffff;"></i>
             Ejercicios</a>
-        </li>
+            <span></span>
 
-        <li class="nav-item">
-          <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos" asp-action="Index">Ejercicios</a>
-        </li>
+             @* <li class="nav-item">
+          <partial name="_LoginPartial" /> 
+            <span></span> 
+        </li>*@
       </ul>
 
     </div>

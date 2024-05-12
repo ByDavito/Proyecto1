@@ -41,6 +41,19 @@ body::before {
   background-color: rgba(0, 0, 0, 0.033);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid red;
+  z-index: 1000;
+  position: fixed;
+}
+
+.offcanvas.offcanvas-end.mi-offcanvas {
+  z-index: 1; /* Establecemos un valor más bajo para el z-index del offcanvas */
+  height: 87.6vh;
+  top: 6.7vh;
+  
+}
+.offcanvas-backdrop{
+  background-color: transparent;
+  z-index: -100000;
 }
 
 .logo{
@@ -67,8 +80,7 @@ body::before {
 
 .offcanvas {
   z-index: 1050; /* Aseguramos que esté por encima del navbar */
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 81%, rgba(0,0,0,1) 100%);/* Agregamos un fondo semitransparente */
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,1) 100%);/* Agregamos un fondo semitransparente */
   backdrop-filter: blur(15px);
   width: 15rem;
   
@@ -109,7 +121,7 @@ button {
   position: absolute;
   top: 15px;
   right: 15px;
-  z-index: 1050;
+  z-index: 100000;
 }
 
 /* <style for menu__icon> ======== */
@@ -149,17 +161,17 @@ button {
   transition: 1.5s;
 }
 
-.menu__icon:focus span:nth-child(1) {
+.animated span:nth-child(1) {
   animation: ease .8s menu-icon-top forwards;
   
 }
 
-.menu__icon:focus span:nth-child(2) {
+.animated span:nth-child(2) {
   animation: ease .8s menu-icon-scaled forwards;
   
 }
 
-.menu__icon:focus span:nth-child(3) {
+.animated span:nth-child(3) {
   animation: ease .8s menu-icon-bottom forwards;
   
 }
@@ -278,6 +290,52 @@ button {
   }
 }
 
+
+
+.nav-iconos {
+  font-size: 1.5rem;
+}
+
+li:hover .nav-iconos{
+  transform: scale(1.2);
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+}
+
+li p{
+  font-size: 1.1rem;
+}
+
+li:hover a{
+  transform: translate(25%);
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+}
+
+li:hover:nth-child(3) a {
+  transform: translate(9%);
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+}
+li span{
+  display: block;
+  width: 0%;
+  height: 0.25rem;
+  border-radius: 20px;
+  background-color: rgb(163, 25, 18);
+  box-shadow: 0 .5px 2px 0 hsla(0, 0%, 0%, .2);
+  transition: background-color .4s;
+  position: fixed;
+
+  transition: .5s;
+}
+
+li:hover span{
+  width: 80%;
+  box-shadow: 0 1px 4px 3px hsla(0, 100%, 50%, 0.2);
+  
+}
+
+
+
+
 .form{
   height: 26rem;
   width: 29rem;
@@ -307,6 +365,7 @@ button {
   background-color: rgba(0, 0, 0, 0.389);
     backdrop-filter: blur(10px);
     border-top: solid 1px red;
+    z-index: 1000;
 }
 
 div:where(.swal2-container) div:where(.swal2-popup) {
