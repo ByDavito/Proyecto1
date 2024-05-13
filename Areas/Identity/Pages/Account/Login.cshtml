@@ -12,7 +12,7 @@
         <section class="item-center">
             <form id="account" method="post" class="">
                 <h2 class="titulo text-center">Usa tu cuenta para loguearte.</h2>
-                <hr />
+                <hr/>
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3 ">
                     <input asp-for="Input.Email" class="form-control input-transparent titulo" autocomplete="username" aria-required="true" placeholder="Email" />
@@ -29,14 +29,12 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword"> haz olvidado tu contraseña?</a>?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword"> haz olvidado tu contraseña?</a>
                     </p>
                     <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Resgistrate</a>
                     </p>
-                    @* <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p> *@
+                 
                 </div>
             </form>
         </section>

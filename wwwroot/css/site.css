@@ -290,23 +290,26 @@ button {
   }
 }
 
+ul{
+  overflow: hidden;
+}
 
 
 .nav-iconos {
   font-size: 1.5rem;
   margin-right: 5px;
+  color: white;
 }
 
-li:hover .nav-iconos{
-  transform: scale(1.2);
+li:hover .nav-iconos:not(:nth-child(2)) {
+  transform: scale(1.8);
   transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
   color: #dd0f0f;
   text-shadow: 0 0 5px #b60f0f;
+  transform: translate(-100%);
 }
 
-li p{
-  font-size: 1.1rem;
-}
+
 
 li:hover a{
   transform: translate(25%);
