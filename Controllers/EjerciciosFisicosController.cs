@@ -137,7 +137,7 @@ public class EjerciciosFisicosController : Controller
                         ejercicioFisicoEditar.EstadoFin = EstadoFin;
                         ejercicioFisicoEditar.Observaciones = Observaciones;
                         _context.SaveChanges();
-                        resultado = "Se ha creado el registro";
+                        resultado = "Se ha editado el registro";
                     }
                 }
             }
