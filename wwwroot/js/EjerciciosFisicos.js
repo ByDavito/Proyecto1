@@ -2,12 +2,17 @@
 
 
 function GetEjerciciosFisicos() {{
+
+    let fechaDesde = document.getElementById("fechaInicio").value;
+    let fechaHasta = document.getElementById("fechaFin").value;
+    let tipoEjercicioBuscarID = document.getElementById("TipoEjercicioBuscarID").value;
+
     $.ajax({
         // la URL para la petición
         url: '../../EjerciciosFisicos/ListadoEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta, tipoEjercicioBuscarID : tipoEjercicioBuscarID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -19,6 +24,7 @@ function GetEjerciciosFisicos() {{
             $("#ModalTipoEjercicio").modal("hide");
             LimpiarModal();
             let contenidoTabla = ``;
+            
             
 
             $.each(Ejercicios, function (Index, Ejercicio) {  

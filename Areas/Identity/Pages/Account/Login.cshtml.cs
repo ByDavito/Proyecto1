@@ -117,7 +117,7 @@ namespace Proyecto1.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     // return LocalRedirect(returnUrl);
-                    return RedirectToAction("./Index", "Ejercicios");
+                    return RedirectToAction("index", "EjerciciosFisicos");
                 }
                 if (result.RequiresTwoFactor)
                 {

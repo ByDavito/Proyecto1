@@ -40,15 +40,57 @@ public class EjerciciosFisicosController : Controller
         // Pasar la lista de opciones al modelo de la vista
         ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
+        var tipoEjercicios = _context.TipoEjercicios.ToList();
+        var tipoEjercicioBuscar = _context.TipoEjercicios.ToList();
+        var tipoEjerciciosActivo = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
 
-        var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
+        tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[puto]"});
 
+        ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicioBuscar.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         return View();
     }
 
-    public JsonResult ListadoEjercicios(int? id)
+       public IActionResult Graficos()
+    {
+         // Crear una lista de SelectListItem que incluya el elemento adicional
+        var selectListItems = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "[SELECCIONE...]" }
+        };
+
+        // Obtener todas las opciones del enum
+        var enumValues = Enum.GetValues(typeof(EstadoEmocional)).Cast<EstadoEmocional>();
+
+        // Convertir las opciones del enum en SelectListItem
+        selectListItems.AddRange(enumValues.Select(e => new SelectListItem
+        {
+            Value = e.GetHashCode().ToString(),
+            Text = e.ToString().ToUpper()
+        }));
+
+        // Pasar la lista de opciones al modelo de la vista
+        ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
+        ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
+        var tipoEjercicios = _context.TipoEjercicios.ToList();
+        var tipoEjercicioBuscar = _context.TipoEjercicios.ToList();
+        var tipoEjerciciosActivo = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
+
+        tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
+        tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[puto]"});
+
+        ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicioBuscar.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
+        ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
+        return View();
+    }
+
+    public JsonResult GraficoEjecicios(int tipoEjercicio, int mes, int anio)
+    {
+        
+    }
+
+    public JsonResult ListadoEjercicios(int? id, DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioBuscarID)
     {
 
         List<VistaEjercicios> EjerciciosMostrar = new List<VistaEjercicios>();
@@ -58,6 +100,14 @@ public class EjerciciosFisicosController : Controller
             if (id != null)
             {
                 ejerciciosFisicos = ejerciciosFisicos.Where(e => e.IdEjercicioFisico == id).ToList();
+            }
+
+            if(FechaDesde != null && FechaHasta != null) {
+                ejerciciosFisicos = ejerciciosFisicos.Where(e => e.Inicio >= FechaDesde && e.Inicio <= FechaHasta).ToList();
+            }
+
+            if(TipoEjercicioBuscarID != 0) {
+                ejerciciosFisicos = ejerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicioBuscarID).ToList();
             }
 
             var Ejercicio = _context.TipoEjercicios.ToList();

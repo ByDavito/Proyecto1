@@ -21,6 +21,20 @@
   </button>
 </div>
 
+<label for="fechaInicio" class="form-label titulo">Inicio</label>
+<input type="date" id="fechaInicio" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
+
+<label for="fechaFin" class="form-label titulo">Inicio</label>
+<input type="date" id="fechaFin" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
+
+                <label for="TipoEjercicioBuscarID" class="form-label titulo">Tipo de Ejerciocio</label>
+                @Html.DropDownList("TipoEjercicioBuscarID", null, htmlAttributes: new
+                  {
+                    @class = " form-control input-transparent",
+                    onchange="GetEjerciciosFisicos()"
+                  })
+
+
 <table class="table mi-tabla">
   <thead >
     <tr>
