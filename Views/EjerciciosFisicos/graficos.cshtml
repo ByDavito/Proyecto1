@@ -5,17 +5,38 @@
 <link rel="stylesheet" href="~/css/style-ejercicios.css">
 <link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
 
-<label for="fechaInicio" class="form-label titulo">Inicio</label>
-<input type="date" id="fechaInicio" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
-
-<label for="fechaFin" class="form-label titulo">Inicio</label>
-<input type="date" id="fechaFin" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
+    <div class="col-xl-4 col-md-4 mb-2">
+        <label class="control-label">Mes:</label>
+        <select class="form-control input-transparent" id="MesEjercicioBuscar" onchange="graficoEjercicio.destroy(), mostrarGrafico()">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5" selected>Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+    </div>
+    <div class="col-xl-4 col-md-4 mb-2">
+        <label class="control-label">Año:</label>
+        <select class="form-control input-transparent" id="AnioEjercicioBuscar" onchange="graficoEjercicio.destroy(), mostrarGrafico()">
+            <option value="2023">2023</option>
+            <option value="2024" selected>2024</option>
+        </select>
+    </div>
 
                 <label for="TipoEjercicioBuscarID" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("TipoEjercicioBuscarID", null, htmlAttributes: new
                   {
                     @class = "select-transparent form-control input-transparent",
-                    onchange="GetEjerciciosFisicos()"
+                    onchange="graficoEjercicio.destroy(), mostrarGrafico()"
+                    
+
                   })
 
 
@@ -41,30 +62,11 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="~/js/ejerciciosfisicos.js"></script>
+<script src="~/Js/grafico.js"></script>
 
-<script>  const ctx = document.getElementById('grafico_linea');
 
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 15, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });</script>
 
-<script>  const ctx1 = document.getElementById('grafico_donut');
+@* <script>  const ctx1 = document.getElementById('grafico_donut');
 
   new Chart(ctx1, {
     type: 'doughnut',
@@ -83,5 +85,5 @@
         }
       }
     }
-  });</script>
+  });</script> *@
 

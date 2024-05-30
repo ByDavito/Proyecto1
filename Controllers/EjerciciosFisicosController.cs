@@ -54,40 +54,45 @@ public class EjerciciosFisicosController : Controller
 
        public IActionResult Graficos()
     {
-         // Crear una lista de SelectListItem que incluya el elemento adicional
-        var selectListItems = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "0", Text = "[SELECCIONE...]" }
-        };
+      var tipoEjercicios = _context.TipoEjercicios.ToList();
+        ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
 
-        // Obtener todas las opciones del enum
-        var enumValues = Enum.GetValues(typeof(EstadoEmocional)).Cast<EstadoEmocional>();
-
-        // Convertir las opciones del enum en SelectListItem
-        selectListItems.AddRange(enumValues.Select(e => new SelectListItem
-        {
-            Value = e.GetHashCode().ToString(),
-            Text = e.ToString().ToUpper()
-        }));
-
-        // Pasar la lista de opciones al modelo de la vista
-        ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
-        ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
-        var tipoEjercicios = _context.TipoEjercicios.ToList();
-        var tipoEjercicioBuscar = _context.TipoEjercicios.ToList();
-        var tipoEjerciciosActivo = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
-
-        tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
-        tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[puto]"});
-
-        ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicioBuscar.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
-        ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         return View();
     }
 
-    public JsonResult GraficoEjecicios(int tipoEjercicio, int mes, int anio)
+    public JsonResult GraficoEjecicios(int TipoEjercicioID, int Mes, int Anio)
     {
+        List<VistaEjercicioFisico> ejercicioFisicos = new List<VistaEjercicioFisico>();
+
+        var diaXMes = DateTime.DaysInMonth(Anio, Mes);
+
+        DateTime fechaMes = new DateTime();
+        fechaMes = fechaMes.AddMonths(Mes - 1);
         
+        for (int i = 1; i <= diaXMes; i++)
+        {
+            var diaMesMostrar = new VistaEjercicioFisico
+            {
+                Dia = i,
+                Mes = fechaMes.ToString("MMMM").ToUpper(),
+                CantidadMinutos = 0
+            };
+
+            ejercicioFisicos.Add(diaMesMostrar);
+        }
+
+        var Ejercicios = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicioID && e.Inicio.Month == Mes && e.Inicio.Year == Anio).ToList();
+
+        foreach (var ejercicio in Ejercicios.OrderBy(e => e.Inicio))
+        {
+            var ejercicioMostrar = ejercicioFisicos.Where(e => e.Dia == ejercicio.Inicio.Day).SingleOrDefault();
+            if (ejercicioMostrar != null)
+            {
+                ejercicioMostrar.CantidadMinutos += ejercicio.Fin.Subtract(ejercicio.Inicio).Minutes;
+            }
+        }
+
+        return Json(ejercicioFisicos);
     }
 
     public JsonResult ListadoEjercicios(int? id, DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioBuscarID)
