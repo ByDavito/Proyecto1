@@ -4,15 +4,16 @@
 
 <link rel="stylesheet" href="~/css/style-ejercicios.css">
 <link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
-
-    <div class="col-xl-4 col-md-4 mb-2">
-        <label class="control-label">Mes:</label>
-        <select class="form-control input-transparent" id="MesEjercicioBuscar" onchange="graficoEjercicio.destroy(), mostrarGrafico()">
+<link rel="stylesheet" href="~/css/grafico.css">
+<div class="row background-element">
+    <div class="col-xl-4 col-md-4 mb-2 text-center">
+        <label class="control-label titulo mb-2">Mes:</label>
+        <select class="form-control input-transparent" id="MesEjercicioBuscar">
             <option value="1">Enero</option>
             <option value="2">Febrero</option>
             <option value="3">Marzo</option>
             <option value="4">Abril</option>
-            <option value="5" selected>Mayo</option>
+            <option value="5">Mayo</option>
             <option value="6">Junio</option>
             <option value="7">Julio</option>
             <option value="8">Agosto</option>
@@ -22,41 +23,45 @@
             <option value="12">Diciembre</option>
         </select>
     </div>
-    <div class="col-xl-4 col-md-4 mb-2">
-        <label class="control-label">Año:</label>
-        <select class="form-control input-transparent" id="AnioEjercicioBuscar" onchange="graficoEjercicio.destroy(), mostrarGrafico()">
+    <div class="col-xl-4 col-md-4 mb-2 text-center">
+        <label class="control-label titulo mb-2">Año:</label>
+        <select class="form-control input-transparent" id="AnioEjercicioBuscar">
             <option value="2023">2023</option>
             <option value="2024" selected>2024</option>
         </select>
     </div>
-
-                <label for="TipoEjercicioBuscarID" class="form-label titulo">Tipo de Ejerciocio</label>
+    <div class="col-xl-4 col-md-4 mb-2 text-center">
+    <label for="" class="form-label titulo mb-2">Tipo de Ejerciocio</label>
                 @Html.DropDownList("TipoEjercicioBuscarID", null, htmlAttributes: new
                   {
-                    @class = "select-transparent form-control input-transparent",
-                    onchange="graficoEjercicio.destroy(), mostrarGrafico()"
+                    @class = "form-control input-transparent",
                     
 
                   })
+                  </div>
+  </div>
+
+                
 
 
 
 
-<div class="container">
+<div class="container-grafic">
   <div class="row">
 
-    <div class="col-md-6 col-sm-12">
-      <div class="container" style="height: 10vh; width: 100%;">
-        <canvas id="grafico_linea" style="height: 10vh; width: 100%;"></canvas>
+    <div class="col-md-12 col-sm-12 centrar col-grafic">
+      <div class="canva-grafic centrar">
+        <canvas id="grafico_linea" class=""></canvas>
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
-      <div class="container" style="height: 10vh; width: 100%;">
-        <canvas id="grafico_donut" style="height: 10vh; width: 100%;"></canvas>
+    <div class="col-md-12 col-sm-12 centrar col-grafic">
+      <div class="canva-grafic centrar">
+        <canvas id="grafico_donut" class=""></canvas>
       </div>
     </div>
 
+   
   </div>
 </div>
 

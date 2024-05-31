@@ -1,23 +1,46 @@
 
-window.onload = mostrarGrafico
+document.addEventListener('DOMContentLoaded', (event) => {
+    const select = document.getElementById('MesEjercicioBuscar');
+    const currentMonth = new Date().getMonth() + 1;
+    select.value = currentMonth;
+});
 
-let graficoEjercicio
+window.onload = mostrarGrafico(), GraficoDonut()
+
+let graficoEjercicio;
+
+let graficoDonutEjercicio;
+
+document.getElementById("MesEjercicioBuscar").addEventListener('change', function () {
+    graficoDonutEjercicio.destroy();
+    graficoEjercicio.destroy();
+    mostrarGrafico();
+    GraficoDonut();
+});
+
+document.getElementById("AnioEjercicioBuscar").addEventListener('change', function () {
+    graficoEjercicio.destroy();
+    mostrarGrafico();
+});
+
+
+
 
 
 function mostrarGrafico() {
 
 
 
-    let tipoEjercicio = document.getElementById("TipoEjercicioBuscarID").value;
+    let TipoEjercicioID = document.getElementById("TipoEjercicioBuscarID").value;
     let mes = document.getElementById("MesEjercicioBuscar").value;
     let anio = document.getElementById("AnioEjercicioBuscar").value;
 
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/GraficoEjecicios',
+        url: '../../EjerciciosFisicos/GraficoLinearEjecicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { tipoEjercicio: tipoEjercicio, mes: mes, anio: anio },
+        data: { TipoEjercicioID: TipoEjercicioID, mes: mes, anio: anio },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -30,7 +53,7 @@ function mostrarGrafico() {
             let data = [];
 
             $.each(ejercicioFisicos, function (index, ejercicioFisico) {
-                labels.push(ejercicioFisico.dia + "de" + ejercicioFisico.mes);
+                labels.push(ejercicioFisico.dia + " de " + ejercicioFisico.mes);
                 data.push(ejercicioFisico.cantidadMinutos);
 
             });
@@ -41,19 +64,82 @@ function mostrarGrafico() {
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '# of Votes',
+                        label: ' Minutos',
                         data: data,
+                        borderColor: '#d00f0f',
+                        backgroundColor: '#d00f0f',
+                        tension: 0.2,
                         borderWidth: 1
                     }]
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                options: {scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            fontColor: 'white'
                         }
+                    },
+                    x:{
+                        ticks: {
+                            fontColor: 'white'}
+                    },
+                    
                     }
                 }
             })
         }
     })
+}
+
+
+
+
+function GraficoDonut(){
+
+    let mes = document.getElementById("MesEjercicioBuscar").value;
+    let anio = document.getElementById("AnioEjercicioBuscar").value;
+    $.ajax({
+        type: "POST",
+        url: '../../EjerciciosFisicos/GraficoCircularEjercicios',
+        data: {mes: mes, anio: anio},
+        success: function (VistaTipoEjercicioFisico) {
+           
+            var labels = [];
+            var data = [];
+            var fondo = [];
+            $.each(VistaTipoEjercicioFisico, function (index, tipoEjercicio) {
+
+                labels.push(tipoEjercicio.nombre);
+                var color = generarColorRojo();
+                fondo.push(color);
+                data.push(tipoEjercicio.cantidadMinutos);
+
+            });
+
+            var ctxPie = document.getElementById("grafico_donut");
+            graficoDonutEjercicio = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: [5,3,6,2,3],
+                        backgroundColor: fondo,
+                    }],
+                },
+            });
+        }
+    });
+}
+
+function generarColorRojo() {
+    // El valor de GG será alto (de 128 a 255) para garantizar que predomine el verde.
+    // Los valores de RR y BB serán bajos (de 0 a 127).
+
+    let rr = Math.floor(Math.random() * 128) + 128; // 0 a 127
+    let gg = Math.floor(Math.random() * 128); // 128 a 255
+    let bb = Math.floor(Math.random() * 128); // 0 a 127
+
+    // Convertimos a hexadecimal y formateamos para que tenga siempre dos dígitos.
+    let colorHex = `#${rr.toString(16).padStart(2, '0')}${gg.toString(16).padStart(2, '0')}${bb.toString(16).padStart(2, '0')}`;
+    return colorHex;
 }

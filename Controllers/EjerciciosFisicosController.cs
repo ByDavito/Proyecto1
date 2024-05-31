@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto1.Controllers;
 
-[Authorize]
+// [Authorize]
 public class EjerciciosFisicosController : Controller 
 {
     private ApplicationDbContext _context;
@@ -45,7 +45,7 @@ public class EjerciciosFisicosController : Controller
         var tipoEjerciciosActivo = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
 
         tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
-        tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[puto]"});
+        tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
 
         ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicioBuscar.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
@@ -60,7 +60,7 @@ public class EjerciciosFisicosController : Controller
         return View();
     }
 
-    public JsonResult GraficoEjecicios(int TipoEjercicioID, int Mes, int Anio)
+    public JsonResult GraficoLinearEjecicios(int TipoEjercicioID, int Mes, int Anio)
     {
         List<VistaEjercicioFisico> ejercicioFisicos = new List<VistaEjercicioFisico>();
 
@@ -74,7 +74,7 @@ public class EjerciciosFisicosController : Controller
             var diaMesMostrar = new VistaEjercicioFisico
             {
                 Dia = i,
-                Mes = fechaMes.ToString("MMMM").ToUpper(),
+                Mes = fechaMes.ToString("MMM").ToUpper(),
                 CantidadMinutos = 0
             };
 
@@ -88,12 +88,48 @@ public class EjerciciosFisicosController : Controller
             var ejercicioMostrar = ejercicioFisicos.Where(e => e.Dia == ejercicio.Inicio.Day).SingleOrDefault();
             if (ejercicioMostrar != null)
             {
-                ejercicioMostrar.CantidadMinutos += ejercicio.Fin.Subtract(ejercicio.Inicio).Minutes;
+                ejercicioMostrar.CantidadMinutos += (int)ejercicio.Fin.Subtract(ejercicio.Inicio).TotalMinutes;
             }
         }
 
         return Json(ejercicioFisicos);
     }
+
+    public JsonResult GraficoCircularEjecicios(int Mes, int Anio)
+    {
+        var VistaTipoEjercicioFisico = new List<VistaTipoEjercicioFisico>();
+
+        var TipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
+
+        foreach (var TipoEjercicio in TipoEjercicios)
+        {
+            var Ejercicios = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicio.TipoEjercicioID && 
+            e.Inicio.Month == Mes && e.Inicio.Year == Anio).ToList();
+
+            foreach (var ejercicio in Ejercicios)
+            {
+                var ejercicioMostrar = VistaTipoEjercicioFisico.Where(e => e.TipoEjercicioID == TipoEjercicio.TipoEjercicioID).SingleOrDefault();
+                if (ejercicioMostrar == null)
+                {
+                    ejercicioMostrar = new VistaTipoEjercicioFisico
+                    {
+                    CantidadMinutos = (int)ejercicio.Fin.Subtract(ejercicio.Inicio).TotalMinutes,
+                    Nombre = ejercicio.TipoEjercicio.Nombre,
+                    TipoEjercicioID = ejercicio.TipoEjercicioID
+                    };
+                    VistaTipoEjercicioFisico.Add(ejercicioMostrar);
+                }
+                else
+                {
+                    ejercicioMostrar.CantidadMinutos += (int)ejercicio.Fin.Subtract(ejercicio.Inicio).TotalMinutes;
+                }
+            }
+        }
+
+        return Json(VistaTipoEjercicioFisico);
+    }
+
+
 
     public JsonResult ListadoEjercicios(int? id, DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioBuscarID)
     {

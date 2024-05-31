@@ -1,0 +1,26 @@
+body{
+    background-image: url("../img/fondo-graficos.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container-grafic{
+    height: 100vh; 
+    width: 50vw;
+    background-color: rgba(0, 0, 0, 0.389);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 1.2rem;
+}
+
+.col-grafic{
+    height: 40vh;
+    width: 100%;
+}
+
+.canva-grafic{
+    height: 100%;
+    width: 100%;
+    color: white;
+}

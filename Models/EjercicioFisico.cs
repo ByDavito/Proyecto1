@@ -14,6 +14,8 @@ namespace Proyecto1.Models
         public EstadoEmocional EstadoFin { get; set; }
         public string? Observaciones { get; set; }
         public virtual TipoEjercicio TipoEjercicio { get; set; }
+        [NotMapped]
+        public TimeSpan Intervalo { get {return Fin - Inicio;} }
     }
 
 
@@ -26,6 +28,7 @@ namespace Proyecto1.Models
         public string? EstadoInicio { get; set; }
         public string? EstadoFin { get; set; }
         public string? Observaciones { get; set; }
+    
 
     }
     public enum EstadoEmocional{

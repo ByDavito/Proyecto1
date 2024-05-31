@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Proyecto1.Controllers;
-[Authorize]
+// [Authorize]
 public class EjerciciosController : Controller
 {
     private readonly ApplicationDbContext _context;

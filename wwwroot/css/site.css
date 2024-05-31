@@ -389,3 +389,10 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   font-family: inherit;
   font-size: 1rem;
 }
+
+.background-element {
+  background-color: rgba(0, 0, 0, 0.389);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: .6rem;
+  }
