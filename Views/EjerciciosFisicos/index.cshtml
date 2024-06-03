@@ -8,30 +8,30 @@
 <h5 class="display-4 titulo centrar" style="text-shadow: 0 0 15px black;">Ejercicio Fisico</h5>
 
 
-<div><button type="button" onclick="GetEjerciciosFisicos()" class="btn  btn-icono col-xl-2 col-md-2 mb-2">
+<div><button type="button" onclick="GetEjerciciosFisicos()" class="btn  btn-icono">
     <i class="bi bi-arrow-counterclockwise"></i>
   </button>
-  <button type="button" class="btn  btn-icono col-xl-2 col-md-2 mb-2" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
+  <button type="button" class="btn  btn-icono" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
     <i class="bi bi-plus-circle"></i>
   </button></div>
 
 <div>
  <div class="mb-2 row background-element text-center" >
-<div class=" col-xl-4 col-md-4 mb-2 ">
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column">
   <label for="fechaInicio" class="form-label titulo">Inicio</label>
 <input type="date" id="fechaInicio" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
 </div>
 
-<div class=" col-xl-4 col-md-4 mb-2 ">
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column">
 <label for="fechaFin" class="form-label titulo">Inicio</label>
 <input type="date" id="fechaFin" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
 </div>
 
-<div class=" col-xl-4 co">
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column text-center">
                 <label for="TipoEjercicioBuscarID" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("TipoEjercicioBuscarID", null, htmlAttributes: new
                   {
-                    @class = " form-control input-transparent",
+                    @class = " form-control input-transparent ",
                     onchange="GetEjerciciosFisicos()"
                   })
                 </div>

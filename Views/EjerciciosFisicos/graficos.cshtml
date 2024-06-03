@@ -44,51 +44,41 @@
                 
 
 
-
-
-<div class="container-grafic">
+<div class="container ">
   <div class="row">
 
-    <div class="col-md-12 col-sm-12 centrar col-grafic">
-      <div class="canva-grafic centrar">
-        <canvas id="grafico_linea" class=""></canvas>
-      </div>
-    </div>
+<div class="container-grafic col-md-6">
+  <div class="d-flex flex-column">
 
-    <div class="col-md-12 col-sm-12 centrar col-grafic">
+    
+
+    <div class="col-md-6 col-sm-6 centrar col-grafic">
       <div class="canva-grafic centrar">
         <canvas id="grafico_donut" class=""></canvas>
       </div>
     </div>
 
-   
   </div>
 </div>
 
+<div class="card-container row centrar">
+      <div class="col-md-12 col-sm-6 centrar col-grafic">
+      <div class="canva-grafic centrar">
+        <canvas id="grafico_linea" class=""></canvas>
+      </div>
+    </div>
+
+    <div class="card-dias-con col-md-6 centrar titulo" id="ConEjercicio">
+          
+    </div>
+
+    <div class="card-dias-sin col-md-6 centrar titulo" id="SinEjercicio">
+
+    </div>
+</div>
+</div>
+</div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/Js/grafico.js"></script>
-
-
-
-@* <script>  const ctx1 = document.getElementById('grafico_donut');
-
-  new Chart(ctx1, {
-    type: 'doughnut',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 15, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });</script> *@
 

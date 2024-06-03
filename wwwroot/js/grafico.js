@@ -59,10 +59,27 @@ function mostrarGrafico() {
 
             let labels = [];
             let data = [];
+            let diasConEjercicio = 0;
+            let totalMinutos = 0;
 
             $.each(ejercicioFisicos, function (index, ejercicioFisico) {
                 labels.push(ejercicioFisico.dia + " de " + ejercicioFisico.mes);
                 data.push(ejercicioFisico.cantidadMinutos);
+
+                totalMinutos += ejercicioFisico.cantidadMinutos;
+
+                if (ejercicioFisico.cantidadMinutos > 0) 
+                {diasConEjercicio +=1;}
+
+                var inputEjercicio = document.getElementById("TipoEjercicioBuscarID");
+
+                var nombreEjercicio = inputEjercicio.options[inputEjercicio.selectedIndex].text;
+
+                let diasSinEjercicio = ejercicioFisicos.length - diasConEjercicio;
+
+
+                $("#ConEjercicio").text(totalMinutos + " MINUTOS EN " + diasConEjercicio + " DÍAS");
+            $("#SinEjercicio").text(diasSinEjercicio + " DÍAS SIN "+ nombreEjercicio);
 
             });
             const ctx = document.getElementById('grafico_linea');
@@ -76,7 +93,7 @@ function mostrarGrafico() {
                         data: data,
                         borderColor: '#d00f0f',
                         backgroundColor: '#d00f0f',
-                        tension: 0.2,
+                        tension: 0.3,
                         borderWidth: 1
                     }]
                 },
@@ -111,10 +128,11 @@ function GraficoDonut(){
         url: '../../EjerciciosFisicos/GraficoCircularEjecicios',
         data: {mes: mes, anio: anio},
         success: function (VistaTipoEjercicioFisico) {
+            console.log(VistaTipoEjercicioFisico);
            
-            var labels = [];
-            var data = [];
-            var fondo = [];
+            let labels = [];
+            let data = [];
+            let fondo = [];
             $.each(VistaTipoEjercicioFisico, function (index, tipoEjercicio) {
 
                 labels.push(tipoEjercicio.nombre);
@@ -124,7 +142,7 @@ function GraficoDonut(){
 
             });
 
-            var ctxPie = document.getElementById("grafico_donut");
+            const ctxPie = document.getElementById("grafico_donut");
             graficoDonutEjercicio = new Chart(ctxPie, {
                 type: 'doughnut',
                 data: {
@@ -160,8 +178,8 @@ function generarColorRojo() {
     // Los valores de RR y BB serán bajos (de 0 a 127).
 
     let rr = Math.floor(Math.random() * 128) + 128; // 0 a 127
-    let gg = Math.floor(Math.random() * 75); // 128 a 255
-    let bb = Math.floor(Math.random() * 75); // 0 a 127
+    let gg = Math.floor(Math.random() * 128); // 128 a 255
+    let bb = Math.floor(Math.random() * 128); // 0 a 127
 
     // Convertimos a hexadecimal y formateamos para que tenga siempre dos dígitos.
     let colorHex = `#${rr.toString(16).padStart(2, '0')}${gg.toString(16).padStart(2, '0')}${bb.toString(16).padStart(2, '0')}`;
