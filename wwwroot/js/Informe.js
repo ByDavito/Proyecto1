@@ -1,8 +1,10 @@
 window.onload = getInforme()
 
 function getInforme() {
-    let fechaDesde = document.getElementById("fechaInicio").value;
-    let fechaHasta = document.getElementById("fechaFin").value;
+
+    let fechaDesde = document.getElementById("fechaDesde").value;
+    let fechaHasta = document.getElementById("fechaHasta").value;
+    let TipoEjercicioID = document.getElementById("IdEjercicio").value;
 
 
     $.ajax({
@@ -10,7 +12,7 @@ function getInforme() {
         url: '../../EjerciciosFisicos/ListadoInforme',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta},
+        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta, TipoEjercicioID : TipoEjercicioID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -24,6 +26,7 @@ function getInforme() {
             let contenidoTabla = ``;
             
             
+            
 
             $.each(ejercicios, function (Index, ejercicio) {  
 
@@ -32,6 +35,7 @@ function getInforme() {
                 contenidoTabla += `
                 <tr${Index === ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
                     <td>${ejercicio.tipoEjercicioNombre}</td>
+                    
                 </tr>
              `;
              $.each(ejercicio.ejercicios, function (Index, data){
@@ -44,6 +48,7 @@ function getInforme() {
                     <td>${data.estadoFin}</td>
                     <td>${data.observaciones}</td>
                     <td>${data.duracion}</td>
+
                 </tr>
                 `
              })
