@@ -18,6 +18,12 @@ namespace Proyecto1.Models
         public TimeSpan Intervalo { get {return Fin - Inicio;} }
     }
 
+    public class VistaInforme{
+        public int TipoEjercicioID { get; set; }
+        public string? TipoEjercicioNombre { get; set; }
+        public List<VistaEjercicios> Ejercicios { get; set; }
+    }
+
 
     public class VistaEjercicios{
         public int IdEjercicioFisico { get; set; }
@@ -28,6 +34,7 @@ namespace Proyecto1.Models
         public string? EstadoInicio { get; set; }
         public string? EstadoFin { get; set; }
         public string? Observaciones { get; set; }
+        public string? Duracion { get; set; }
     
 
     }

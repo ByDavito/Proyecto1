@@ -59,6 +59,11 @@ public class EjerciciosFisicosController : Controller
         return View();
     }
 
+    public ActionResult Informe(){
+
+        return View();
+    }
+
     public JsonResult GraficoLinearEjecicios(int TipoEjercicioID, int Mes, int Anio)
     {
         List<VistaEjercicioFisico> ejercicioFisicos = new List<VistaEjercicioFisico>();
@@ -127,6 +132,41 @@ public class EjerciciosFisicosController : Controller
 
         return Json(VistaTipoEjercicioFisico);
     }
+
+public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta){
+    List<VistaInforme> Ejercicios = new List<VistaInforme>();
+
+    var tipoEjercicio = _context.TipoEjercicios.OrderBy(t => t.Nombre).ToList();
+
+    
+
+    foreach (var Ejercicio in tipoEjercicio){
+        var registros = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == Ejercicio.TipoEjercicioID).ToList();
+
+        var ejercicioMostrar = new VistaInforme{
+            TipoEjercicioID = Ejercicio.TipoEjercicioID,
+            TipoEjercicioNombre = Ejercicio.Nombre,
+            Ejercicios = new List<VistaEjercicios>()
+        };
+
+        foreach (var ejercicio in registros){
+            var EjerciciosData = new VistaEjercicios{
+                IdEjercicioFisico = ejercicio.IdEjercicioFisico,
+                TipoEjercicioID = ejercicio.TipoEjercicioID,
+                EjercicioNombre = ejercicio.TipoEjercicio.Nombre,
+                InicioString = ejercicio.Inicio.ToString("dd/MM/yyyy HH:mm"),
+                FinString = ejercicio.Fin.ToString("dd/MM/yyyy HH:mm"),
+                EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoInicio),
+                EstadoFin = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoFin),
+                Observaciones = ejercicio.Observaciones,
+                Duracion = ejercicio.Intervalo.ToString()
+            };
+            ejercicioMostrar.Ejercicios.Add(EjerciciosData); 
+        }
+        Ejercicios.Add(ejercicioMostrar);
+    }
+    return Json(Ejercicios); 
+}
 
 
 
