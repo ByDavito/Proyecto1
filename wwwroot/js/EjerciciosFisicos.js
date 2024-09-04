@@ -34,6 +34,7 @@ function GetEjerciciosFisicos() {{
                 contenidoTabla += `
                 <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
                     <td class="borde-td align-middle"><div><p>${Ejercicio.ejercicioNombre}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.lugar}</p></div></td>
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.inicioString}</p></div></td>
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
@@ -76,6 +77,7 @@ function GuardarRegistro(){
     //GUARDAMOS EN UNA VARIABLE LO ESCRITO EN EL INPUT DESCRIPCION
     let idEjerciciofisico = document.getElementById("EjercicioFisicoID").value;
     let tipoEjercicioID = document.getElementById("IdEjercicio").value;
+    let lugarID = document.getElementById("LugarID").value;
     let inicio = document.getElementById("Inicio").value;
     let fin = document.getElementById("Fin").value;
     let estadoInicio = document.getElementById("EstadoInicio").value;
@@ -95,7 +97,8 @@ function GuardarRegistro(){
                 fin: fin, 
                 estadoInicio: estadoInicio, 
                 estadoFin: estadoFin, 
-                observaciones: observaciones},
+                observaciones: observaciones,
+                lugarID: lugarID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -149,6 +152,7 @@ function AbrirModalEditar(idEjerciciofisico){
             document.getElementById("EjercicioFisicoID").value = idEjerciciofisico;
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");
             document.getElementById("IdEjercicio").value = ejercicio.tipoEjercicioID;
+            document.getElementById("LugarID").value = ejercicio.lugarID;
             document.getElementById("Inicio").value = ejercicio.inicio;
             document.getElementById("Inicio").classList.add("expanded");
             document.getElementById("Fin").value = ejercicio.fin;

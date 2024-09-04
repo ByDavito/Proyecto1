@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto1.Data;
 
@@ -11,9 +12,11 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240903234654_migracion3")]
+    partial class migracion3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,8 +258,6 @@ namespace Proyecto1.Migrations
 
                     b.HasKey("IdEjercicioFisico");
 
-                    b.HasIndex("LugarID");
-
                     b.HasIndex("TipoEjercicioID");
 
                     b.ToTable("EjerciciosFisicos");
@@ -353,26 +354,13 @@ namespace Proyecto1.Migrations
 
             modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
                 {
-                    b.HasOne("Proyecto1.Models.Lugar", "Lugar")
-                        .WithMany("EjerciciosFisicos")
-                        .HasForeignKey("LugarID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Proyecto1.Models.TipoEjercicio", "TipoEjercicio")
                         .WithMany("EjerciciosFisicos")
                         .HasForeignKey("TipoEjercicioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Lugar");
-
                     b.Navigation("TipoEjercicio");
-                });
-
-            modelBuilder.Entity("Proyecto1.Models.Lugar", b =>
-                {
-                    b.Navigation("EjerciciosFisicos");
                 });
 
             modelBuilder.Entity("Proyecto1.Models.TipoEjercicio", b =>

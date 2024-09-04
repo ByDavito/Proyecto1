@@ -8,12 +8,14 @@ namespace Proyecto1.Models
         [Key]
         public int IdEjercicioFisico { get; set; }
         public int TipoEjercicioID { get; set; }
+        public int LugarID { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }
         public EstadoEmocional EstadoInicio { get; set; }
         public EstadoEmocional EstadoFin { get; set; }
         public string? Observaciones { get; set; }
         public virtual TipoEjercicio TipoEjercicio { get; set; }
+         public virtual Lugar Lugar { get; set; }
         [NotMapped]
         public TimeSpan Intervalo { get {return Fin - Inicio;} }
     }
@@ -29,6 +31,7 @@ namespace Proyecto1.Models
         public int IdEjercicioFisico { get; set; }
         public int TipoEjercicioID { get; set; }
         public string? EjercicioNombre { get; set; }
+        public string? Lugar { get; set; }
         public string InicioString { get; set; }
         public string FinString { get; set; }
         public string? EstadoInicio { get; set; }

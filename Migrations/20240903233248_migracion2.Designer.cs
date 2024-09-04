@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto1.Data;
 
@@ -11,9 +12,11 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240903233248_migracion2")]
+    partial class migracion2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,9 +247,6 @@ namespace Proyecto1.Migrations
                     b.Property<DateTime>("Inicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LugarID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
 
@@ -254,8 +254,6 @@ namespace Proyecto1.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("IdEjercicioFisico");
-
-                    b.HasIndex("LugarID");
 
                     b.HasIndex("TipoEjercicioID");
 
@@ -353,26 +351,13 @@ namespace Proyecto1.Migrations
 
             modelBuilder.Entity("Proyecto1.Models.EjercicioFisico", b =>
                 {
-                    b.HasOne("Proyecto1.Models.Lugar", "Lugar")
-                        .WithMany("EjerciciosFisicos")
-                        .HasForeignKey("LugarID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Proyecto1.Models.TipoEjercicio", "TipoEjercicio")
                         .WithMany("EjerciciosFisicos")
                         .HasForeignKey("TipoEjercicioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Lugar");
-
                     b.Navigation("TipoEjercicio");
-                });
-
-            modelBuilder.Entity("Proyecto1.Models.Lugar", b =>
-                {
-                    b.Navigation("EjerciciosFisicos");
                 });
 
             modelBuilder.Entity("Proyecto1.Models.TipoEjercicio", b =>

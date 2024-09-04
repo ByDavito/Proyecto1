@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Tipo de Ejercicio";
+}
+
+<link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
+<link rel="stylesheet" href="~/css/style-ejercicios.css">
+
+
+<div class="text-center">
+  <h1 class="display-4 titulo">Tipo de Ejercicios</h1>
+</div>
+
+<!-- Button trigger modal -->
+<div class="mb-2">
+  <button type="button" onclick="GetEjercicios()" class="btn btn-icono">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+  <button type="button" class="btn btn-icono" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
+    <i class="bi bi-plus-circle"></i>
+  </button>
+</div>
+
+
+<!-- Modal -->
+
+<div class="modal fade " id="ModalTipoEjercicio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content mi-modal">
+      <div class="modal-header">
+        <h5 class="modal-title titulo" id="ModalTitulo"></h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <input type="hidden" id="TipoEjercicioID" value="0"/>
+            <label for="descripcion" class="form-label titulo">Descripción</label>
+            <input type="text" class="form-control input-transparent" style="width: 300px" id="descripcion" style="text-transform:uppercase" placeholder="Nombre del tipo de actividad">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="LimpiarModal()" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="GuardarRegistro()" class="btn btn-primary test">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="div-tipoejercicios">
+<table class="table ">
+  <thead>
+    <tr>
+      <th style="">Descripción</th>
+      <th style="width: 70px; style="width: 70px;"></th>
+      <th style="width: 70px;"></th>
+    </tr>
+  </thead>
+  <tbody id="tbody-tipoejercicios" class="tbody-overflow ">
+  </tbody>
+</table>
+</div>
+
+@section Scripts {
+  <script src="~/js/Lugares.js"></script>
+}

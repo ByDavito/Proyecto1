@@ -42,12 +42,16 @@ public class EjerciciosFisicosController : Controller
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
         var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         var tipoEjercicioBuscar = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
+        var LugarID = _context.Lugares.Where(e => e.Eliminado == false).ToList();
+
 
         tipoEjercicios.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
         tipoEjercicioBuscar.Add(new TipoEjercicio{TipoEjercicioID = 0, Nombre = "[SELECCIONE...]"});
+        
 
         ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicioBuscar.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
+        ViewBag.LugarID = new SelectList(LugarID.OrderBy(c => c.LugarID), "LugarID", "Nombre");
         return View();
     }
 
@@ -222,11 +226,14 @@ public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int
             {
                 var ejercicio = Ejercicio.Where(e => e.TipoEjercicioID == ejercicioFisico.TipoEjercicioID).Single();
 
+                var Lugar = _context.Lugares.Find(ejercicioFisico.LugarID);
+
                 var ejercicioMostrar = new VistaEjercicios
                 {
                     IdEjercicioFisico = ejercicioFisico.IdEjercicioFisico,
                     TipoEjercicioID = ejercicioFisico.TipoEjercicioID,
                     EjercicioNombre = ejercicio.Nombre,
+                    Lugar = Lugar.Nombre,
                     InicioString = ejercicioFisico.Inicio.ToString("dd/MM/yyyy HH:mm"),
                     FinString = ejercicioFisico.Fin.ToString("dd/MM/yyyy HH:mm"),
                     EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoInicio),
@@ -253,7 +260,7 @@ public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int
 
     }
 
-    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
+    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID,int LugarID,  DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -270,6 +277,7 @@ public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int
                 {
                     IdEjercicioFisico = IdEjercicioFisico,
                     TipoEjercicioID = TipoEjercicioID,
+                    LugarID = LugarID,
                     Inicio = Inicio,
                     Fin = Fin,
                     EstadoInicio = EstadoInicio,
@@ -287,6 +295,7 @@ public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int
                 {
                     var existeEjercicioFisico = _context.EjerciciosFisicos.Where(e => e.IdEjercicioFisico == IdEjercicioFisico).Count(); {
                         ejercicioFisicoEditar.TipoEjercicioID = TipoEjercicioID;
+                        ejercicioFisicoEditar.LugarID = LugarID;
                         ejercicioFisicoEditar.Inicio = Inicio;
                         ejercicioFisicoEditar.Fin = Fin;
                         ejercicioFisicoEditar.EstadoInicio = EstadoInicio;

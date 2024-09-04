@@ -44,6 +44,7 @@
   <thead >
     <tr>
       <th class="text-center align-middle"><div class="centrar"><p>Ejercicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Lugar</p></div></th>
       <th class="text-center align-middle";"><div class="centrar"><p>Inicio</p></div></th>
       <th class="text-center align-middle"><div class="centrar"><p>Fin</p></div></th>
       <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
@@ -77,6 +78,14 @@
               <div class="mb-3 col-md-12 centrar flex-column">
                 <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("IdEjercicio", null, htmlAttributes: new
+                  {
+                    @class = "select-transparent form-control input-transparent"
+                  })
+              </div>
+
+              <div class="mb-3 col-md-12 centrar flex-column">
+                <label for="IdEjercicio" class="form-label titulo">Lugar</label>
+                @Html.DropDownList("LugarID", null, htmlAttributes: new
                   {
                     @class = "select-transparent form-control input-transparent"
                   })
@@ -131,5 +140,5 @@
 
 
 
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/ejerciciosfisicos.js"></script>
