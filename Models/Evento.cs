@@ -2,19 +2,18 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Proyecto1.Models;
 
-public class Lugar
+public class Evento
 {
     [Key]
-    public int LugarID { get; set; }
+    public int EventoID { get; set; }
 
     public string? Nombre { get; set; }
     public bool Eliminado { get; set; }
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
 
-public class VistaLugar
-{
-    public int LugarID { get; set; }
+public class VistaEvento{
+    public int? EventoID { get; set; }
     public string? Nombre { get; set; }
-    public List<VistaTipoEjercicio> vistaTipoEjercicios { get; set; }
+    public List<VistaLugar> VistaLugar { get; set; }
 }

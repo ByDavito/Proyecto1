@@ -11,3 +11,10 @@ public class TipoEjercicio
     public bool Eliminado { get; set; }
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
+
+ public class VistaTipoEjercicio
+    {
+        public int TipoEjercicioID { get; set; }
+        public string? Nombre { get; set; }
+        public List<VistaEjerciciosGeneral> VistaEjerciciosGeneral  { get; set; }
+    }

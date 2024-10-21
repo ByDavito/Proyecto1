@@ -76,18 +76,18 @@ public class LugaresController : Controller
                     resultado = "Se ha creado el nuevo ejercicio";
                 }
                 else if (existeTipoEjercicio == _context.Lugares.Where(t => t.Nombre == nombre && t.Eliminado == true).Count())
-{
+                {
                     var activarEjercicio = _context.Lugares.FirstOrDefault(t => t.Nombre == nombre && t.Eliminado == true);
                     if (activarEjercicio != null)
-                        {
-                            activarEjercicio.Eliminado = false;
-                            _context.SaveChanges();
-                        }
-}
+                    {
+                        activarEjercicio.Eliminado = false;
+                        _context.SaveChanges();
+                    }
+                }
 
                 else
                 {
-                    resultado = "Ya existe un registro con el mismo nombre";   
+                    resultado = "Ya existe un registro con el mismo nombre";
                 }
 
 

@@ -34,6 +34,7 @@ function GetEjerciciosFisicos() {{
                 contenidoTabla += `
                 <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
                     <td class="borde-td align-middle"><div><p>${Ejercicio.ejercicioNombre}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.evento}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.lugar}</p></div></td>
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.inicioString}</p></div></td>
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
@@ -78,6 +79,7 @@ function GuardarRegistro(){
     let idEjerciciofisico = document.getElementById("EjercicioFisicoID").value;
     let tipoEjercicioID = document.getElementById("IdEjercicio").value;
     let lugarID = document.getElementById("LugarID").value;
+    let eventoID = document.getElementById("EventoID").value;
     let inicio = document.getElementById("Inicio").value;
     let fin = document.getElementById("Fin").value;
     let estadoInicio = document.getElementById("EstadoInicio").value;
@@ -98,7 +100,8 @@ function GuardarRegistro(){
                 estadoInicio: estadoInicio, 
                 estadoFin: estadoFin, 
                 observaciones: observaciones,
-                lugarID: lugarID},
+                lugarID: lugarID,
+                eventoID: eventoID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -132,6 +135,8 @@ function GuardarRegistro(){
     document.getElementById("Fin").classList.remove("expanded");
     document.getElementById("EstadoFin").value = 0;
     document.getElementById("Observaciones").value = "";
+    document.getElementById("LugarID").value = 0;
+    document.getElementById("EventoID").value = 0;
 }
 
 function AbrirModalEditar(idEjerciciofisico){
@@ -153,6 +158,7 @@ function AbrirModalEditar(idEjerciciofisico){
             $("#ModalTitulo").text("Editar Tipo de Ejercicio");
             document.getElementById("IdEjercicio").value = ejercicio.tipoEjercicioID;
             document.getElementById("LugarID").value = ejercicio.lugarID;
+            document.getElementById("EventoID").value = ejercicio.eventoID;
             document.getElementById("Inicio").value = ejercicio.inicio;
             document.getElementById("Inicio").classList.add("expanded");
             document.getElementById("Fin").value = ejercicio.fin;

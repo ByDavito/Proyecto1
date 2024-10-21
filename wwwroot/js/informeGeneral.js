@@ -1,18 +1,15 @@
 window.onload = getInforme()
 
 function getInforme() {
-
     let fechaDesde = document.getElementById("fechaDesde").value;
     let fechaHasta = document.getElementById("fechaHasta").value;
-    let TipoEjercicioID = document.getElementById("IdEjercicio").value;
-
 
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/ListadoInforme',
+        url: '../../Eventos/InformeCompleto',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta, TipoEjercicioID : TipoEjercicioID },
+        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -34,7 +31,7 @@ function getInforme() {
                 
                 contenidoTabla += `
                 <tr${Index === ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
-                    <td>${ejercicio.tipoEjercicioNombre}</td>
+                    <td>${ejercicio.nombre}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -43,20 +40,50 @@ function getInforme() {
                     <td></td>
                 </tr>
              `;
-             $.each(ejercicio.ejercicios, function (Index, data){
+             $.each(ejercicio.vistaLugar, function (Index, data){
                 contenidoTabla += `
                 <tr>
                     <td></td>
-                    <td>${data.inicioString}</td>
-                    <td>${data.finString}</td>
-                    <td>${data.estadoInicio}</td>
-                    <td>${data.estadoFin}</td>
-                    <td>${data.observaciones}</td>
-                    <td>${data.duracion}</td>
+                    <td>${data.nombre}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
                 </tr>
                 `
+
+                $.each(data.vistaTipoEjercicios, function (Index, item){
+                    contenidoTabla += `
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>${item.nombre}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    `
+                    $.each(item.vistaEjerciciosGeneral, function (Index, data){
+                        contenidoTabla += `
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${data.inicioString}</td>
+                            <td>${data.finString}</td>
+                            <td>${data.estadoInicio}</td>
+                            <td>${data.estadoFin}</td>
+                            <td>${data.observaciones}</td>
+                        </tr>
+                        `
+                     })
+                 })
              })
+
+
 
             });
 

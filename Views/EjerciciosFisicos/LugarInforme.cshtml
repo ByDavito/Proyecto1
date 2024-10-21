@@ -1,0 +1,40 @@
+
+
+<link rel="stylesheet" href="~/css/style-ejercicios.css">
+
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column text-center">
+                <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
+                @Html.DropDownList("IdEjercicio", null, htmlAttributes: new
+                  {
+                    @class = " form-control input-transparent ",
+                    onchange="getInforme()"
+                  })
+                </div>
+<button onclick="getInformeLugares()" class="btn btn-success"> recargar</button>
+  <label for="fechaDesde" class="form-label titulo">Inicio</label>
+<input type="date" id="fechaDesde" class="form-control input-transparent input-circulo" onchange="getInforme()"/>
+
+
+<label for="fechaHasta" class="form-label titulo">Fin</label>
+<input type="date" id="fechaHasta" class="form-control input-transparent input-circulo" onchange="getInforme()"/>
+
+
+<table class="table mi-tabla">
+  <thead >
+    <tr>
+      <th class="text-center align-middle"><div class="centrar"><p>Ejercicio</p></div></th>
+      <th class="text-center align-middle";"><div class="centrar"><p>Inicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Fin</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Observaciones</p></div></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tbody-ejerciciosFisicos" >
+  </tbody>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Lugar.js"></script>
