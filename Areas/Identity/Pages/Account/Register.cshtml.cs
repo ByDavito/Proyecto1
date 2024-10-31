@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Proyecto1.Models;
 
 namespace Proyecto1.Areas.Identity.Pages.Account
 {
@@ -74,6 +75,23 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+            [Required]
+            [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} y un máximo de {1} caracteres.", MinimumLength = 2)]
+            [Display(Name = "Nombre")]
+            public string Nombre { get; set; }
+            [Required]
+            [DisplayFormat(DataFormatString = "{0:F3}")]
+            [Display(Name = "Peso")]
+            public float Peso { get; set; }
+            [Required]
+            [DisplayFormat(DataFormatString = "{0:F2}")]
+            [Display(Name = "Altura")]
+            public float Altura { get; set; }
+            [Required]
+            [Display(Name = "Sexo")]
+            public Sexo Sexo { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -123,6 +141,16 @@ namespace Proyecto1.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    var Persona = new Persona
+                    {
+                        CuentaID = userId,  // Esto vincula tu tabla `Usuario` con `AspNetUsers`
+                        Nombre = Input.Nombre,  // Guardar el nombre en tu tabla `Usuario`
+                        Peso = Input.Peso,
+                        Altura = Input.Altura,
+                        Sexo = Input.Sexo
+                    };
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

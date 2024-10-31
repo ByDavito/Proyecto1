@@ -7,6 +7,7 @@ namespace Proyecto1.Models
     public class EjercicioFisico{
         [Key]
         public int IdEjercicioFisico { get; set; }
+        public int? PersonaID { get; set; }
         public int? EventoID { get; set; }
         public int TipoEjercicioID { get; set; }
         public int LugarID { get; set; }
@@ -18,6 +19,7 @@ namespace Proyecto1.Models
         public virtual TipoEjercicio TipoEjercicio { get; set; }
          public virtual Lugar Lugar { get; set; }
          public virtual Evento Evento { get; set; }
+         public virtual Persona Persona { get; set; }
         [NotMapped]
         public TimeSpan Intervalo { get {return Fin - Inicio;} }
     }

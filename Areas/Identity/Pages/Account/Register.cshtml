@@ -27,6 +27,24 @@
                 <label asp-for="Input.ConfirmPassword" class="form-label text-shadow titulo">Confirmar contraseña</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Nombre" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Nombre" />
+                <label asp-for="Input.Nombre" class="form-label text-shadow titulo">Nombre</label>
+                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Altura" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Altura" />
+                <label asp-for="Input.Altura" class="form-label text-shadow titulo">Altura</label>
+                <span asp-validation-for="Input.Altura" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Peso" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Peso" />
+                <label asp-for="Input.Peso" class="form-label text-shadow titulo">Peso</label>
+                <span asp-validation-for="Input.Peso" class="text-danger"></span>
+            </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary test">Register</button>
         </form>
     </div>
