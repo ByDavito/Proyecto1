@@ -16,6 +16,10 @@ public class Persona
 
     public virtual ICollection<Lugar> Lugares { get; set; }
 
+    public virtual ICollection<Evento> Eventos { get; set; }
+
+    public virtual ICollection<TipoEjercicio> TipoEjercicios { get; set; }
+
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
 public enum Sexo

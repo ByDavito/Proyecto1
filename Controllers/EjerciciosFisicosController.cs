@@ -50,10 +50,10 @@ public class EjerciciosFisicosController : Controller
         // Pasar la lista de opciones al modelo de la vista
         ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
-        var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
+        var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
         var tipoEjercicioBuscar = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         var LugarID = _context.Lugares.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
-        var EventoID = _context.Eventos.Where(e => e.Eliminado == false).ToList();
+        var EventoID = _context.Eventos.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
 
 
         tipoEjercicios.Add(new TipoEjercicio { TipoEjercicioID = 0, Nombre = "[SELECCIONE...]" });

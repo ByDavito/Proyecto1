@@ -5,6 +5,7 @@ using Proyecto1.Data;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Proyecto1.Controllers;
 // [Authorize]
@@ -17,18 +18,26 @@ public class EjerciciosController : Controller
         _context = context;
     }
 
-    public IActionResult Ejercicios()
+    public IActionResult Ejercicios(int? UsuarioID)
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+        
         return View();
     }
 
-    public JsonResult GetEjercicios(int? TipoEjercicioID)
+    public JsonResult GetEjercicios(int? TipoEjercicioID, int UsuarioID)
     {
-        var TipoEjercicios = _context.TipoEjercicios.ToList();
+        var TipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
 
         if (TipoEjercicioID != null)
         {
-            TipoEjercicios = TipoEjercicios.Where(e => e.TipoEjercicioID == TipoEjercicioID).ToList();
+            TipoEjercicios = TipoEjercicios.Where(e => e.TipoEjercicioID == TipoEjercicioID ).ToList();
         }
 
         return Json(TipoEjercicios.ToList());
@@ -37,7 +46,7 @@ public class EjerciciosController : Controller
 
 
 
-    public JsonResult GuardarTipoEjercicio(string nombre, int TipoEjercicioID, bool Eliminado)
+    public JsonResult GuardarTipoEjercicio(string nombre, int TipoEjercicioID, bool Eliminado, int UsuarioID)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -69,7 +78,8 @@ public class EjerciciosController : Controller
                     //4- GUARDAR EL TIPO DE EJERCICIO
                     var tipoEjercicio = new TipoEjercicio
                     {
-                        Nombre = nombre
+                        Nombre = nombre,
+                        PersonaID = UsuarioID
                     };
                     _context.Add(tipoEjercicio);
                     _context.SaveChanges();
