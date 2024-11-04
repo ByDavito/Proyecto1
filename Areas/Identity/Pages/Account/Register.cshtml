@@ -27,6 +27,16 @@
                 <label asp-for="Input.ConfirmPassword" class="form-label text-shadow titulo">Confirmar contraseña</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Sexo" asp-items="Model.SexoOptions">
+                    <option value="0">Seleccione</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">Otro</option>
+                </select>
+                <label asp-for="Input.Sexo" class="form-label text-shadow titulo">Sexo</label>
+                <span asp-validation-for="Input.Sexo" class="text-danger"></span>
+            </div>
 
             <div class="form-floating mb-3">
                 <input asp-for="Input.Nombre" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Nombre" />

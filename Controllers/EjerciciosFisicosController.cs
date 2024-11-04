@@ -5,6 +5,7 @@ using Proyecto1.Data;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Proyecto1.Controllers;
 
@@ -19,7 +20,7 @@ public class EjerciciosFisicosController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int? UsuarioID)
     {
         // Crear una lista de SelectListItem que incluya el elemento adicional
         var selectListItems = new List<SelectListItem>
@@ -37,12 +38,21 @@ public class EjerciciosFisicosController : Controller
             Text = e.ToString().ToUpper()
         }));
 
+       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+
         // Pasar la lista de opciones al modelo de la vista
         ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
         ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
         var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         var tipoEjercicioBuscar = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
-        var LugarID = _context.Lugares.Where(e => e.Eliminado == false).ToList();
+        var LugarID = _context.Lugares.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
         var EventoID = _context.Eventos.Where(e => e.Eliminado == false).ToList();
 
 
@@ -58,33 +68,59 @@ public class EjerciciosFisicosController : Controller
         return View();
     }
 
-    public IActionResult Graficos()
+    public IActionResult Graficos(int? UsuarioID)
     {
         var tipoEjercicios = _context.TipoEjercicios.ToList();
         ViewBag.TipoEjercicioBuscarID = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
 
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+
+
         return View();
     }
 
-    public ActionResult Informe()
+    public ActionResult Informe(int? UsuarioID)
     {
         var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         tipoEjercicios.Add(new TipoEjercicio { TipoEjercicioID = 0, Nombre = "[SELECCIONE...]" });
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
 
         return View();
     }
 
-    public ActionResult LugarInforme()
+    public ActionResult LugarInforme(int? UsuarioID)
     {
         var tipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false).ToList();
         tipoEjercicios.Add(new TipoEjercicio { TipoEjercicioID = 0, Nombre = "[SELECCIONE...]" });
         ViewBag.IdEjercicio = new SelectList(tipoEjercicios.OrderBy(c => c.Nombre), "TipoEjercicioID", "Nombre");
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
 
         return View();
     }
 
-    public JsonResult GraficoLinearEjecicios(int TipoEjercicioID, int Mes, int Anio)
+    public JsonResult GraficoLinearEjecicios(int TipoEjercicioID, int Mes, int Anio, int? UsuarioID)
     {
         List<VistaEjercicioFisico> ejercicioFisicos = new List<VistaEjercicioFisico>();
 
@@ -105,7 +141,7 @@ public class EjerciciosFisicosController : Controller
             ejercicioFisicos.Add(diaMesMostrar);
         }
 
-        var Ejercicios = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicioID && e.Inicio.Month == Mes && e.Inicio.Year == Anio).ToList();
+        var Ejercicios = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicioID && e.Inicio.Month == Mes && e.Inicio.Year == Anio && e.PersonaID == UsuarioID).ToList();
 
         foreach (var ejercicio in Ejercicios.OrderBy(e => e.Inicio))
         {
@@ -119,7 +155,7 @@ public class EjerciciosFisicosController : Controller
         return Json(ejercicioFisicos);
     }
 
-    public JsonResult GraficoCircularEjecicios(int Mes, int Anio)
+    public JsonResult GraficoCircularEjecicios(int Mes, int Anio, int? UsuarioID)
     {
         var VistaTipoEjercicioFisico = new List<VistaTipoEjercicioFisico>();
 
@@ -128,7 +164,7 @@ public class EjerciciosFisicosController : Controller
         foreach (var TipoEjercicio in TipoEjercicios)
         {
             var Ejercicios = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == TipoEjercicio.TipoEjercicioID &&
-            e.Inicio.Month == Mes && e.Inicio.Year == Anio).ToList();
+            e.Inicio.Month == Mes && e.Inicio.Year == Anio && e.PersonaID == UsuarioID).ToList();
 
             foreach (var ejercicio in Ejercicios)
             {
@@ -153,11 +189,11 @@ public class EjerciciosFisicosController : Controller
         return Json(VistaTipoEjercicioFisico);
     }
 
-    public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioID)
+    public JsonResult ListadoInforme(DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioID, int? UsuarioID)
     {
         List<VistaInforme> Ejercicios = new List<VistaInforme>();
 
-        var tipoEjercicio = _context.TipoEjercicios.Where(t => t.Eliminado == false).OrderBy(t => t.Nombre).ToList();
+        var tipoEjercicio = _context.TipoEjercicios.Where(t => t.Eliminado == false ).OrderBy(t => t.Nombre).ToList();
         if (TipoEjercicioID != 0)
         {
             tipoEjercicio = _context.TipoEjercicios.Where(t => t.Eliminado == false && t.TipoEjercicioID == TipoEjercicioID).OrderBy(t => t.Nombre).ToList();
@@ -167,7 +203,7 @@ public class EjerciciosFisicosController : Controller
 
         foreach (var Ejercicio in tipoEjercicio)
         {
-            var registros = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == Ejercicio.TipoEjercicioID).OrderBy(e => e.Inicio).ToList();
+            var registros = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == Ejercicio.TipoEjercicioID && e.PersonaID == UsuarioID).OrderBy(e => e.Inicio).ToList();
 
             var ejercicioMostrar = new VistaInforme
             {
@@ -227,8 +263,8 @@ public class EjerciciosFisicosController : Controller
         List<Lugarvista> Informe = new List<Lugarvista>();
 
 
-        var Lugares = _context.Lugares.OrderBy(l => l.Nombre).ToList();
-         var ejerciciosFisicos = _context.EjerciciosFisicos.Where(e => e.Inicio >= FechaDesde && e.Inicio <= FechaHasta).OrderBy(e => e.Inicio).ToList();
+        var Lugares = _context.Lugares.Where(l => l.Eliminado == false && l.PersonaID == 1).OrderBy(l => l.Nombre).ToList();
+         var ejerciciosFisicos = _context.EjerciciosFisicos.Where(e => e.Inicio >= FechaDesde && e.Inicio <= FechaHasta && e.PersonaID == 1).OrderBy(e => e.Inicio).ToList();
          var tipoEjercicio = _context.TipoEjercicios.OrderBy(t => t.Nombre).ToList();
         foreach (var item in Lugares)
         {
@@ -264,12 +300,12 @@ public class EjerciciosFisicosController : Controller
     }
 
 
-    public JsonResult ListadoEjercicios(int? id, DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioBuscarID)
+    public JsonResult ListadoEjercicios(int? id, DateTime? FechaDesde, DateTime? FechaHasta, int? TipoEjercicioBuscarID, int? UsuarioID)
     {
 
         List<VistaEjercicios> EjerciciosMostrar = new List<VistaEjercicios>();
 
-        var ejerciciosFisicos = _context.EjerciciosFisicos.ToList();
+        var ejerciciosFisicos = _context.EjerciciosFisicos.Where(e => e.PersonaID == UsuarioID).ToList();
 
         if (id != null)
         {
@@ -329,7 +365,7 @@ public class EjerciciosFisicosController : Controller
 
     }
 
-    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID, int LugarID,int EventoID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
+    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID, int LugarID,int EventoID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones, int UsuarioID)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -352,7 +388,8 @@ public class EjerciciosFisicosController : Controller
                     Fin = Fin,
                     EstadoInicio = EstadoInicio,
                     EstadoFin = EstadoFin,
-                    Observaciones = Observaciones
+                    Observaciones = Observaciones,
+                    PersonaID = UsuarioID
                 };
                 _context.Add(EjercicioFisico);
                 _context.SaveChanges();

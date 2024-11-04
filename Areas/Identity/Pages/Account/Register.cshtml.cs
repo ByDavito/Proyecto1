@@ -8,8 +8,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,9 +19,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Proyecto1.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Proyecto1.Data;
 
 namespace Proyecto1.Areas.Identity.Pages.Account
 {
+    
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -30,13 +33,15 @@ namespace Proyecto1.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext _contexto)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +49,7 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = _contexto;
         }
 
         /// <summary>
@@ -76,6 +82,8 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             /// 
+
+
             [Required]
             [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} y un máximo de {1} caracteres.", MinimumLength = 2)]
             [Display(Name = "Nombre")]
@@ -122,10 +130,33 @@ namespace Proyecto1.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
         }
+
+        public List<SelectListItem> SexoOptions { get; set; } // Propiedad pública para la vista
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var selectListItems = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "0", Text = "[SELECCIONE...]" }
+    };
+
+            // Obtener todas las opciones del enum
+            var enumValues = Enum.GetValues(typeof(Sexo)).Cast<Sexo>();
+
+            // Convertir las opciones del enum en SelectListItem
+            selectListItems.AddRange(enumValues.Select(e => new SelectListItem
+            {
+                Value = e.GetHashCode().ToString(),
+                Text = e.ToString()
+            }));
+
+            SexoOptions = selectListItems.OrderBy(t => t.Text).ToList(); // Asigna el valor a la propiedad pública
+
+
+
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -150,6 +181,8 @@ namespace Proyecto1.Areas.Identity.Pages.Account
                         Altura = Input.Altura,
                         Sexo = Input.Sexo
                     };
+                    _context.Add(Persona);
+                    await _context.SaveChangesAsync();
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

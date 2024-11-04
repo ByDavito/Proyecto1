@@ -40,13 +40,14 @@ function mostrarGrafico() {
     let TipoEjercicioID = document.getElementById("TipoEjercicioBuscarID").value;
     let mes = document.getElementById("MesEjercicioBuscar").value;
     let anio = document.getElementById("AnioEjercicioBuscar").value;
+    let usuarioID = document.getElementById("UsuarioID").value;
 
     $.ajax({
         // la URL para la petición
         url: '../../EjerciciosFisicos/GraficoLinearEjecicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { TipoEjercicioID: TipoEjercicioID, mes: mes, anio: anio },
+        data: { TipoEjercicioID: TipoEjercicioID, mes: mes, anio: anio, usuarioID: usuarioID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -123,10 +124,12 @@ function GraficoDonut(){
 
     let mes = document.getElementById("MesEjercicioBuscar").value;
     let anio = document.getElementById("AnioEjercicioBuscar").value;
+    let usuarioID = document.getElementById("UsuarioID").value;
+
     $.ajax({
         type: "POST",
         url: '../../EjerciciosFisicos/GraficoCircularEjecicios',
-        data: {mes: mes, anio: anio},
+        data: {mes: mes, anio: anio, usuarioID: usuarioID},
         success: function (VistaTipoEjercicioFisico) {
             console.log(VistaTipoEjercicioFisico);
            

@@ -5,6 +5,7 @@ using Proyecto1.Data;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Proyecto1.Controllers;
 // [Authorize]
@@ -17,27 +18,36 @@ public class LugaresController : Controller
         _context = context;
     }
 
-    public IActionResult Lugares()
+    public IActionResult Lugares(int? UsuarioID)
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+        
         return View();
     }
 
-    public JsonResult GetLugares(int? LugarID)
+    public JsonResult GetLugares(int? LugarID, int UsuarioID)
     {
-        var Lugares = _context.Lugares.ToList();
+        var Lugares = _context.Lugares.Where(e => e.PersonaID == UsuarioID && e.Eliminado == false).ToList();
 
         if (LugarID != null)
         {
             Lugares = Lugares.Where(e => e.LugarID == LugarID).ToList();
         }
 
-        return Json(Lugares.ToList());
+        return Json(Lugares);
     }
 
 
 
 
-    public JsonResult GuardarLugar(string nombre, int LugarID, bool Eliminado)
+    public JsonResult GuardarLugar(string nombre, int LugarID, bool Eliminado, int UsuarioID)
     {
         //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
         // if (descripcion != null && descripcion != "")
@@ -69,7 +79,8 @@ public class LugaresController : Controller
                     //4- GUARDAR EL TIPO DE EJERCICIO
                     var lugar = new Lugar
                     {
-                        Nombre = nombre
+                        Nombre = nombre,
+                        PersonaID = UsuarioID
                     };
                     _context.Add(lugar);
                     _context.SaveChanges();

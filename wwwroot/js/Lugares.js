@@ -1,12 +1,13 @@
 window.onload = GetEjercicios
 
 function GetEjercicios() {{
+    let usuarioID = document.getElementById("UsuarioID").value;
     $.ajax({
         // la URL para la petición
         url: '../../Lugares/GetLugares',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: { usuarioID: usuarioID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -108,7 +109,8 @@ function GuardarRegistro(){
     //GUARDAMOS EN UNA VARIABLE LO ESCRITO EN EL INPUT DESCRIPCION
     let LugarID = document.getElementById("TipoEjercicioID").value;
     let nombre = document.getElementById("descripcion").value;
-    let eliminado = false
+    let eliminado = false;
+    let usuarioID = document.getElementById("UsuarioID").value;
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
     //LUEGO POR OTRO LADO HACER VERIFICACIONES DE DATOS EN EL BACK, SI EXISTE EL ELEMENTO SI NECESITAMOS LA BASE DE DATOS.
    
@@ -117,7 +119,7 @@ function GuardarRegistro(){
         url: '../../Lugares/GuardarLugar',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { LugarID: LugarID, nombre: nombre},
+        data: { LugarID: LugarID, nombre: nombre, usuarioID: usuarioID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta

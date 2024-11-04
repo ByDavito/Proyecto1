@@ -14,6 +14,8 @@ public class Persona
     public string? Nombre { get; set; }
     public string? CuentaID { get; set; }
 
+    public virtual ICollection<Lugar> Lugares { get; set; }
+
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
 public enum Sexo
