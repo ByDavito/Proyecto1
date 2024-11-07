@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Proyecto1.Controllers;
 // [Authorize]
@@ -19,8 +20,16 @@ public class EventosController : Controller
     }
 
 
-    public IActionResult Index()
+    public IActionResult Index(int? UsuarioID)
     {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+        
         return View();
     }
 
@@ -36,7 +45,7 @@ public class EventosController : Controller
         return Json(Eventos.ToList());
     }
 
-    public JsonResult GuardarEvento(string nombre, int EventoID, bool Eliminado)
+    public JsonResult GuardarEvento(string nombre, int EventoID, bool Eliminado, int UsuarioID)
     {
         string resultado = "";
 
@@ -57,7 +66,8 @@ public class EventosController : Controller
                     //4- GUARDAR EL TIPO DE EJERCICIO
                     var Evento = new Evento
                     {
-                        Nombre = nombre
+                        Nombre = nombre,
+                        PersonaID = UsuarioID,
                     };
                     _context.Add(Evento);
                     _context.SaveChanges();

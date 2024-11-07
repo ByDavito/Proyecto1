@@ -73,7 +73,7 @@ public class LugaresController : Controller
                 //3- VERIFICAMOS SI EXISTE EN BASE DE DATOS UN REGISTRO CON LA MISMA DESCRIPCION
                 //PARA REALIZAR ESA VERIFICACION BUSCAMOS EN EL CONTEXTO, ES DECIR EN BASE DE DATOS 
                 //SI EXISTE UN REGISTRO CON ESA DESCRIPCION  
-                var existeTipoEjercicio = _context.Lugares.Where(t => t.Nombre == nombre).Count();
+                var existeTipoEjercicio = _context.Lugares.Where(t => t.Nombre == nombre && t.PersonaID == UsuarioID).Count();
                 if (existeTipoEjercicio == 0)
                 {
                     //4- GUARDAR EL TIPO DE EJERCICIO
