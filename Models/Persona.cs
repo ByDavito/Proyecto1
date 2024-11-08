@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 namespace Proyecto1.Models;
 
 public class Persona
@@ -13,6 +14,7 @@ public class Persona
     public Sexo Sexo { get; set; }
     public string? Nombre { get; set; }
     public string? CuentaID { get; set; }
+    public ApplicationUser? Users { get; set; }
 
     public virtual ICollection<Lugar> Lugares { get; set; }
 
@@ -22,10 +24,24 @@ public class Persona
 
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
+
+public class ApplicationUser : IdentityUser
+{
+}
+
 public enum Sexo
 {
     Masculino =1,
     Femenino,
     Otro
 
+}
+
+public class VistaCuenta{
+    public string Nombre { get; set; }
+    public Sexo Sexo { get; set; }
+    public float Peso { get; set; }
+    public float Altura { get; set; }
+    public string Email { get; set; }
+    public string Rol { get; set; }
 }

@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+  }
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -43,6 +50,13 @@
     </div>
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        @if (user != null && await UserManager.IsInRoleAsync(user, "Administrador"))
+        {
+          <li class="nav-item">
+          <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-chart-column nav-iconos"></i>  Administrar</a>
+          <span></span>
+        </li>
+        } else{
         <li class="nav-item">
           <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos" asp-action="Graficos"><i class="fa-solid fa-chart-column nav-iconos"></i>  Graficos</a>
           <span></span>
@@ -88,7 +102,7 @@
           <a class="nav-link text-light" asp-area="" asp-controller="Eventos" asp-action="InformeGeneral">
              Informe general</a>
             <span></span>
-        </li>
+        </li>}
 
           <partial name="_LoginPartial" /> 
             <span></span> 

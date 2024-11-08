@@ -16,16 +16,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Proyecto1.Models;
 
+
 namespace Proyecto1.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, UserManager<IdentityUser> UserManager)
         {
             _signInManager = signInManager;
+            _userManager = UserManager;
             _logger = logger;
         }
 
@@ -115,6 +118,14 @@ namespace Proyecto1.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var role = roles.FirstOrDefault();
+                    if (role == "ADMINISTRADOR")
+                    {
+                        _logger.LogInformation("admin logged in.");
+                        return RedirectToAction("index", "Admin");
+                    }
                     _logger.LogInformation("User logged in.");
                     // return LocalRedirect(returnUrl);
                     return RedirectToAction("index", "EjerciciosFisicos");

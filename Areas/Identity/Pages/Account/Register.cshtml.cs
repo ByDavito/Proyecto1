@@ -32,6 +32,7 @@ namespace Proyecto1.Areas.Identity.Pages.Account
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly RoleManager<IdentityRole> _rolManager;
         private readonly IEmailSender _emailSender;
         private ApplicationDbContext _context;
 
@@ -41,7 +42,8 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext _contexto)
+            ApplicationDbContext _contexto,
+            RoleManager<IdentityRole> rolManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -50,6 +52,7 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _context = _contexto;
+            _rolManager = rolManager;
         }
 
         /// <summary>
@@ -163,9 +166,17 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                var nombreRolCrearExiste = await _rolManager.FindByNameAsync("DEPORTISTA");
+
+                if (nombreRolCrearExiste == null)
+                {
+                    var roleResult = await _rolManager.CreateAsync(new IdentityRole("DEPORTISTA"));
+                }
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "DEPORTISTA");
 
                 if (result.Succeeded)
                 {

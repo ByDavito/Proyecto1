@@ -24,12 +24,12 @@ public class HomeController : Controller
         _rolManager = rolManager;
     }
 
- public IActionResult Privacy()
+    public IActionResult Privacy()
     {
         return View();
     }
-    
-    public async Task<IActionResult> IndexAsync()
+
+    public async Task<IActionResult> Index()
     {
         await InicializarPermisosUsuario();
         return View();
@@ -47,7 +47,7 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-     public async Task<JsonResult> InicializarPermisosUsuario()
+    public async Task<JsonResult> InicializarPermisosUsuario()
     {
         // CREAR ROLES SI NO EXISTEN
         // Se verifica si el rol "ADMINISTRADOR" ya existe en la base de datos.
@@ -73,11 +73,12 @@ public class HomeController : Controller
             // Se crea un nuevo usuario con el correo "admin@admin.com" y el nombre "Admin"
             var user = new IdentityUser { UserName = "admin@admin.com", Email = "admin@admin.com" };
 
-            // Se guarda el usuario en la base de datos con la contraseña predeterminada "ProyectARG2024".
-            var result = await _userManager.CreateAsync(user, "admin");
+            // Se guarda el usuario en la base de datos con la contraseña predeterminada "admin".
+            var result = await _userManager.CreateAsync(user, "admin1");
 
             // Se asigna el rol "ADMINISTRADOR" al nuevo usuario creado.
             await _userManager.AddToRoleAsync(user, "ADMINISTRADOR");
+            
 
             // Se actualiza la variable "creado" para indicar si la creación fue exitosa.
             creado = result.Succeeded;
