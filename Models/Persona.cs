@@ -39,7 +39,7 @@ public enum Sexo
 
 public class VistaCuenta{
     public string Nombre { get; set; }
-    public Sexo Sexo { get; set; }
+    public string Sexo { get; set; }
     public float Peso { get; set; }
     public float Altura { get; set; }
     public string Email { get; set; }

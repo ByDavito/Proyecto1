@@ -31,15 +31,17 @@ public class AdminController : Controller
 
         foreach (var usuario in usuarios)
         {
-            var rol = _context.Roles.Where(r => r.Id == usuario.CuentaID).SingleOrDefault();
+            var rol = _context.UserRoles.Where(r => r.UserId == usuario.CuentaID).SingleOrDefault();
+            var rolName = _context.Roles.Where(r => r.Id == rol.RoleId).SingleOrDefault();
+            var Email = _context.Users.Where(r => r.Id == usuario.CuentaID).SingleOrDefault();
             var cuenta = new VistaCuenta
             {
                 Nombre = usuario.Nombre,
-                Sexo = usuario.Sexo,
+                Sexo = Enum.GetName(typeof(Sexo), usuario.Sexo).ToString(),
                 Peso = usuario.Peso,
                 Altura = usuario.Altura,
-                Rol = rol.Name,
-                Email = usuario.Users.Email
+                Rol = rolName.Name,
+                Email = Email.Email
             }; Usuarios.Add(cuenta);
         }
         return Json(Usuarios);
