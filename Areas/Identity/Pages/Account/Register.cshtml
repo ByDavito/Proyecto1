@@ -13,18 +13,22 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control input-transparent" autocomplete="username" aria-required="true" placeholder="Email" />
+                <input asp-for="Input.Email" class="form-control input-transparent" autocomplete="username"
+                    aria-required="true" placeholder="Email" />
                 <label asp-for="Input.Email" class="form-label text-shadow titulo">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Contraseña" />
+                <input asp-for="Input.Password" class="form-control input-transparent" autocomplete="new-password"
+                    aria-required="true" placeholder="Contraseña" />
                 <label asp-for="Input.Password" class="form-label text-shadow titulo">Contraseña</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Confirmar contraseña" />
-                <label asp-for="Input.ConfirmPassword" class="form-label text-shadow titulo">Confirmar contraseña</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control input-transparent"
+                    autocomplete="new-password" aria-required="true" placeholder="Confirmar contraseña" />
+                <label asp-for="Input.ConfirmPassword" class="form-label text-shadow titulo">Confirmar
+                    contraseña</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
@@ -38,20 +42,30 @@
                 <span asp-validation-for="Input.Sexo" class="text-danger"></span>
             </div>
 
+            <div>
+                <label asp-for="Input.FechaNacimiento" class="form-label text-shadow titulo">Fecha de Nacimiento</label>
+                <input asp-for="Input.FechaNacimiento" class="form-control input-transparent"
+                    autocomplete="new-password" aria-required="true" placeholder="Fecha de Nacimiento" />
+                <span asp-validation-for="Input.FechaNacimiento" class="text-danger"></span>
+            </div>
+
             <div class="form-floating mb-3">
-                <input asp-for="Input.Nombre" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Nombre" />
+                <input asp-for="Input.Nombre" class="form-control input-transparent" autocomplete="new-password"
+                    aria-required="true" placeholder="Nombre" />
                 <label asp-for="Input.Nombre" class="form-label text-shadow titulo">Nombre</label>
                 <span asp-validation-for="Input.Nombre" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.Altura" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Altura" />
+                <input asp-for="Input.Altura" class="form-control input-transparent" autocomplete=""
+                    aria-required="true" placeholder="Altura" id="Altura"/>
                 <label asp-for="Input.Altura" class="form-label text-shadow titulo">Altura</label>
                 <span asp-validation-for="Input.Altura" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.Peso" class="form-control input-transparent" autocomplete="new-password" aria-required="true" placeholder="Peso" />
+                <input asp-for="Input.Peso" class="form-control input-transparent" autocomplete=""
+                    aria-required="true" placeholder="Peso" />
                 <label asp-for="Input.Peso" class="form-label text-shadow titulo">Peso</label>
                 <span asp-validation-for="Input.Peso" class="text-danger"></span>
             </div>
@@ -60,13 +74,36 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-           
-                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Iniciar Sesion</a>
-               
+
+            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Iniciar Sesion</a>
+
         </section>
     </div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    
+
+    <script>
+        document.getElementById("Altura").addEventListener("input", function () {
+            
+                    // Obtener el valor actual del input
+        let value = $(this).val();
+
+        // Eliminar cualquier carácter que no sea un dígito o coma
+        value = value.replace(/[^0-9,]/g, '');
+        value = value.replace(/\B(?=(\d{2})+(?!\d))/g, ",")
+
+        // Asegurarse de que haya solo una coma y que no esté al inicio
+        if (value.indexOf(",") !== -1) {
+            let partes = value.split(",");
+            
+            partes[1] = partes[1].slice(0, 2); // Limitar los decimales a 2 dígitos
+            value = partes[0] + ',' + partes[1];
+        }
+
+        // Actualizar el valor del input con el formato final
+        $(this).val(value);
+    });
+    </script>
 }

@@ -92,11 +92,10 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             [Display(Name = "Nombre")]
             public string Nombre { get; set; }
             [Required]
-            [DisplayFormat(DataFormatString = "{0:F3}")]
+            
             [Display(Name = "Peso")]
             public float Peso { get; set; }
             [Required]
-            [DisplayFormat(DataFormatString = "{0:F2}")]
             [Display(Name = "Altura")]
             public float Altura { get; set; }
             [Required]
@@ -107,6 +106,11 @@ namespace Proyecto1.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Fecha de Nacimiento")]
+            public DateTime FechaNacimiento { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -190,7 +194,8 @@ namespace Proyecto1.Areas.Identity.Pages.Account
                         Nombre = Input.Nombre,  // Guardar el nombre en tu tabla `Usuario`
                         Peso = Input.Peso,
                         Altura = Input.Altura,
-                        Sexo = Input.Sexo
+                        Sexo = Input.Sexo,
+                        FechaNacimiento = Input.FechaNacimiento
                     };
                     _context.Add(Persona);
                     await _context.SaveChangesAsync();

@@ -13,8 +13,8 @@ public class Persona
     public float Peso { get; set; }
     public Sexo Sexo { get; set; }
     public string? Nombre { get; set; }
+    public DateTime FechaNacimiento { get; set; }
     public string? CuentaID { get; set; }
-    public ApplicationUser? Users { get; set; }
 
     public virtual ICollection<Lugar> Lugares { get; set; }
 
@@ -44,4 +44,7 @@ public class VistaCuenta{
     public float Altura { get; set; }
     public string Email { get; set; }
     public string Rol { get; set; }
+    public string FechaNacimiento { get; set; }
+    public string Edad { get; set; }
+    public string imc { get; set; }
 }
