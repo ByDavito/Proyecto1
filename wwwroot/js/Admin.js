@@ -21,7 +21,8 @@ function getUsuarios() {
                   <td class="borde-td align-middle"><div><p>${usuario.fechaNacimiento} <br>(${usuario.edad} Años)</p></div></td>
                   <td class="borde-td align-middle"><div><p>${usuario.email}</p></div></td>
                   <td class="borde-td align-middle" style="min-width: 5rem;"><div><p>${usuario.altura} m</p></div></td>
-                  <td class="borde-td align-middle" style="min-width: 8rem;"><div><p>${usuario.peso} Kg</p></div></td>
+                  <td class="borde-td align-middle" style="min-width: 5rem;"><div><p>${usuario.peso} Kg</p></div></td>
+                  <td class="borde-td align-middle" style="min-width: 8rem;"><div><p>${usuario.tmb.slice(0, 6)} Kcal</p></div></td>
                   <td class="borde-td align-middle"><div><p>${usuario.imc.slice(0, 5)}</p></div></td>
                   <td class="borde-td align-middle"><div><p>${usuario.sexo}</p></div></td>
                   <td class="borde-td align-middle"><div><p>${usuario.rol}</p></div></td>

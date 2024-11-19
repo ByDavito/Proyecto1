@@ -47,4 +47,5 @@ public class VistaCuenta{
     public string FechaNacimiento { get; set; }
     public string Edad { get; set; }
     public string imc { get; set; }
+    public string tmb { get; set; }
 }

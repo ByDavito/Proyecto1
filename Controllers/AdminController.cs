@@ -36,6 +36,7 @@ public class AdminController : Controller
             var Email = _context.Users.Where(r => r.Id == usuario.CuentaID).SingleOrDefault();
             var edad = DateTime.Now.Year - usuario.FechaNacimiento.Year;
             var imc = usuario.Peso / (usuario.Altura * usuario.Altura);
+            var tmb = 10 * usuario.Peso + 6.25 * (usuario.Altura * 100) - 5 * edad  + (usuario.Sexo == Sexo.Femenino ? -161 : 5);
             var cuenta = new VistaCuenta
             {
                 Nombre = usuario.Nombre,
@@ -46,7 +47,8 @@ public class AdminController : Controller
                 Email = Email.Email,
                 FechaNacimiento = usuario.FechaNacimiento.ToString("dd/MM/yyyy"),
                 Edad = edad.ToString(),
-                imc = imc.ToString()
+                imc = imc.ToString(),
+                tmb = tmb.ToString()
             }; Usuarios.Add(cuenta);
         }
         return Json(Usuarios);
