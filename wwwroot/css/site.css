@@ -393,4 +393,5 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: .6rem;
+  color: aliceblue;
   }

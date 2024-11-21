@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="~/css/style-ejercicios.css">
+<link rel="stylesheet" href="~/css/persona.css">
+<input type="hidden" id="UsuarioID" value="@ViewBag.UsuarioID">
+<h2>Perfil</h2>
+
+<div class="background-element contenedor-persona row">
+    <div class="col-md-6 d-flex flex-column">
+    <Label>Nombre</Label>
+    <input class="input-transparent form-control" type="text" id="nombre">
+    </div>
+    <div class="col-md-6 d-flex flex-column">
+    <Label>Fecha de nacimiento</del></Label>
+    <input class="input-transparent form-control" type="datetime-local" id="fecha">
+    </div>
+    <div class="col-md-4 d-flex flex-column">
+    <Label>Peso</Label>
+    <input class="input-transparent form-control" type="text" id="peso">
+    </div>
+    <div class="col-md-4 d-flex flex-column">
+    <Label>Altura</Label>
+    <input class="input-transparent form-control" type="text" id="Altura">
+    </div>
+    <div class="col-md-4 d-flex flex-column">
+     <div class="form-floating mb-3">
+                <select class="form-control input-transparent" id="sexo">
+                    <option value="0">Seleccione</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">Otro</option>
+                </select>
+                <label  class="form-label text-shadow titulo">Sexo</label>
+            </div>
+    </div>
+    <button class="btn btn-primary" onclick="GuardarPersona()">Guardar</button>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/persona.js"></script>
