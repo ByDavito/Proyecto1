@@ -9,7 +9,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 
 namespace Proyecto1.Controllers;
-// [Authorize]
+[Authorize(Roles = "ADMINISTRADOR")]
 public class AdminController : Controller
 {
     private readonly ApplicationDbContext _context;

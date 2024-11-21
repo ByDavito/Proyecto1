@@ -65,7 +65,7 @@
 
             <div class="form-floating mb-3">
                 <input asp-for="Input.Peso" class="form-control input-transparent" autocomplete=""
-                    aria-required="true" placeholder="Peso" />
+                    aria-required="true" placeholder="Peso" id="peso"/>
                 <label asp-for="Input.Peso" class="form-label text-shadow titulo">Peso</label>
                 <span asp-validation-for="Input.Peso" class="text-danger"></span>
             </div>
@@ -99,6 +99,28 @@
             let partes = value.split(",");
             
             partes[1] = partes[1].slice(0, 2); // Limitar los decimales a 2 dígitos
+            value = partes[0] + ',' + partes[1];
+        }
+
+        // Actualizar el valor del input con el formato final
+        $(this).val(value);
+    });
+
+    document.getElementById("peso").addEventListener("input", function () {
+            
+                    // Obtener el valor actual del input
+        let value = $(this).val();
+
+        // Eliminar cualquier carácter que no sea un dígito o coma
+        value = value.replace(/[^0-9,]/g, '');
+        value = value.replace(/^(\d{3})(\d+)/, '$1,$2'); // Inserta la coma después de los primeros 3 dígitos
+
+        // Asegurarse de que haya solo una coma y que no esté al inicio
+        if (value.indexOf(",") !== -1) {
+            let partes = value.split(",");
+            
+            partes[0] = partes[0].slice(0, 3);
+            partes[1] = partes[1].slice(0, 3); // Limitar los decimales a 3 dígitos
             value = partes[0] + ',' + partes[1];
         }
 
