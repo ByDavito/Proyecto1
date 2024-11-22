@@ -41,6 +41,7 @@ function GetEjerciciosFisicos() {{
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.kcal.slice(0, 6)}</p></div></td>
                     <td class="borde-td align-middle" style=" max-width: 12rem;"><div><p>${Ejercicio.observaciones}</p></div></td>
                     <td class="align-middle">
                     <button type="button" class="btn btn-icono edit" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">
@@ -86,6 +87,7 @@ function GuardarRegistro(){
     let estadoInicio = document.getElementById("EstadoInicio").value;
     let estadoFin = document.getElementById("EstadoFin").value;
     let observaciones = document.getElementById("Observaciones").value;
+    
     let usuarioID = document.getElementById("UsuarioID").value;
 
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS

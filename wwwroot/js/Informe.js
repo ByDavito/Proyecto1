@@ -5,6 +5,7 @@ function getInforme() {
     let fechaDesde = document.getElementById("fechaDesde").value;
     let fechaHasta = document.getElementById("fechaHasta").value;
     let TipoEjercicioID = document.getElementById("IdEjercicio").value;
+    let usuarioID = document.getElementById("UsuarioID").value;
 
 
     $.ajax({
@@ -12,7 +13,7 @@ function getInforme() {
         url: '../../EjerciciosFisicos/ListadoInforme',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta, TipoEjercicioID : TipoEjercicioID },
+        data: { fechaDesde : fechaDesde, fechaHasta : fechaHasta, TipoEjercicioID : TipoEjercicioID, usuarioID : usuarioID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -53,6 +54,7 @@ function getInforme() {
                     <td>${data.estadoFin}</td>
                     <td>${data.observaciones}</td>
                     <td>${data.duracion}</td>
+                    <td>${data.kcal.slice(0, 6)}</td>
 
                 </tr>
                 `

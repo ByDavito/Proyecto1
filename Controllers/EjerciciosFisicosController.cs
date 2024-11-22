@@ -203,8 +203,8 @@ public class EjerciciosFisicosController : Controller
 
         foreach (var Ejercicio in tipoEjercicio)
         {
-            var registros = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == Ejercicio.TipoEjercicioID && e.PersonaID == UsuarioID).OrderBy(e => e.Inicio).ToList();
-
+            var registros = _context.EjerciciosFisicos.Where(e => e.TipoEjercicioID == Ejercicio.TipoEjercicioID).OrderBy(e => e.Inicio).ToList();
+            var persona = _context.Personas.Where(p => p.PersonaID == UsuarioID).FirstOrDefault();
             var ejercicioMostrar = new VistaInforme
             {
                 TipoEjercicioID = Ejercicio.TipoEjercicioID,
@@ -214,12 +214,14 @@ public class EjerciciosFisicosController : Controller
 
             foreach (var ejercicio in registros)
             {
+                 var kcal = Ejercicio.MET * ejercicio.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
                 if (FechaDesde != null && FechaHasta != null)
                 {
 
-
+                    
                     if (ejercicio.Inicio >= FechaDesde && ejercicio.Fin <= FechaHasta)
                     {
+                        
                         var EjerciciosData = new VistaEjercicios
                         {
                             IdEjercicioFisico = ejercicio.IdEjercicioFisico,
@@ -230,13 +232,15 @@ public class EjerciciosFisicosController : Controller
                             EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoInicio),
                             EstadoFin = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoFin),
                             Observaciones = ejercicio.Observaciones,
-                            Duracion = ejercicio.Intervalo.ToString()
+                            Duracion = ejercicio.Intervalo.ToString(),
+                            Kcal = kcal.ToString()
                         };
                         ejercicioMostrar.Ejercicios.Add(EjerciciosData);
                     }
                 }
                 else
                 {
+                    
                     var EjerciciosData = new VistaEjercicios
                     {
                         IdEjercicioFisico = ejercicio.IdEjercicioFisico,
@@ -247,7 +251,8 @@ public class EjerciciosFisicosController : Controller
                         EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoInicio),
                         EstadoFin = Enum.GetName(typeof(EstadoEmocional), ejercicio.EstadoFin),
                         Observaciones = ejercicio.Observaciones,
-                        Duracion = ejercicio.Intervalo.ToString()
+                        Duracion = ejercicio.Intervalo.ToString(),
+                        Kcal = kcal.ToString()
                     };
                     ejercicioMostrar.Ejercicios.Add(EjerciciosData);
                 }
@@ -258,14 +263,16 @@ public class EjerciciosFisicosController : Controller
     }
 
 
-    public JsonResult informeLugar(DateTime? FechaDesde, DateTime? FechaHasta)
+    public JsonResult informeLugar(DateTime? FechaDesde, DateTime? FechaHasta, int? UsuarioID)
     {
         List<Lugarvista> Informe = new List<Lugarvista>();
 
 
-        var Lugares = _context.Lugares.Where(l => l.Eliminado == false && l.PersonaID == 1).OrderBy(l => l.Nombre).ToList();
-         var ejerciciosFisicos = _context.EjerciciosFisicos.Where(e => e.Inicio >= FechaDesde && e.Inicio <= FechaHasta && e.PersonaID == 1).OrderBy(e => e.Inicio).ToList();
-         var tipoEjercicio = _context.TipoEjercicios.OrderBy(t => t.Nombre).ToList();
+        var Lugares = _context.Lugares.Where(l => l.Eliminado == false && l.PersonaID == UsuarioID).OrderBy(l => l.Nombre).ToList();
+         var ejerciciosFisicos = _context.EjerciciosFisicos.OrderBy(e => e.Inicio).ToList();
+         var tipoEjercicios = _context.TipoEjercicios.OrderBy(t => t.Nombre).ToList();
+
+         var persona = _context.Personas.Where(p => p.PersonaID == UsuarioID).SingleOrDefault();
         foreach (var item in Lugares)
         {
             var LugarMostrar = new Lugarvista
@@ -279,8 +286,10 @@ public class EjerciciosFisicosController : Controller
 
             foreach (var ejercicio in ejerciciosFisicos)
             {
+               var tipoEjercicio = tipoEjercicios.Where(t => t.Eliminado == false && t.TipoEjercicioID == ejercicio.TipoEjercicioID).OrderBy(t => t.Nombre).FirstOrDefault();
                 if (ejercicio.LugarID == item.LugarID)
                 {
+                    var kcal = tipoEjercicio.MET * ejercicio.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
                     var LugarEjerciciosData = new LugarEjercicios
                     {
                         IdEjercicioFisico = ejercicio.IdEjercicioFisico,
@@ -289,7 +298,8 @@ public class EjerciciosFisicosController : Controller
                         InicioString = ejercicio.Inicio.ToString("dd/MM/yyyy HH:mm"),
                         FinString = ejercicio.Fin.ToString("dd/MM/yyyy HH:mm"),
                         Observaciones = ejercicio.Observaciones,
-                        Duracion = ejercicio.Intervalo.ToString()
+                        Duracion = ejercicio.Intervalo.ToString(),
+                        Kcal = kcal.ToString()
                     };
                     LugarMostrar.LugarEjercicios.Add(LugarEjerciciosData);
                 }
@@ -324,6 +334,8 @@ public class EjerciciosFisicosController : Controller
 
         var Ejercicio = _context.TipoEjercicios.ToList();
 
+        var persona = _context.Personas.Find(UsuarioID);
+
         foreach (var ejercicioFisico in ejerciciosFisicos)
         {
             var ejercicio = Ejercicio.Where(e => e.TipoEjercicioID == ejercicioFisico.TipoEjercicioID).Single();
@@ -331,6 +343,8 @@ public class EjerciciosFisicosController : Controller
             var Lugar = _context.Lugares.Find(ejercicioFisico.LugarID);
 
             var Evento = _context.Eventos.Find(ejercicioFisico.EventoID);
+
+            var kcal = ejercicio.MET * ejercicioFisico.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
 
             var ejercicioMostrar = new VistaEjercicios
             {
@@ -343,7 +357,8 @@ public class EjerciciosFisicosController : Controller
                 FinString = ejercicioFisico.Fin.ToString("dd/MM/yyyy HH:mm"),
                 EstadoInicio = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoInicio),
                 EstadoFin = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoFin),
-                Observaciones = ejercicioFisico.Observaciones
+                Observaciones = ejercicioFisico.Observaciones,
+                Kcal = kcal.ToString()
             };
             EjerciciosMostrar.Add(ejercicioMostrar);
         }
@@ -436,4 +451,5 @@ public class EjerciciosFisicosController : Controller
         return Json(true);
     }
 
+  
 }

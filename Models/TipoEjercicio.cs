@@ -10,6 +10,7 @@ public class TipoEjercicio
     public string? Nombre { get; set; }
     public bool Eliminado { get; set; }
     public int? PersonaID { get; set; }
+    public float MET { get; set; }
 
     public virtual Persona Persona { get; set; }
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }

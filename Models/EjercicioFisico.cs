@@ -43,6 +43,7 @@ namespace Proyecto1.Models
         public string? EstadoFin { get; set; }
         public string? Observaciones { get; set; }
         public string? Duracion { get; set; }
+        public string? Kcal { get; set; }
     }
 
     public class Lugarvista{
@@ -60,6 +61,7 @@ namespace Proyecto1.Models
         public string FinString { get; set; }
         public string? Observaciones { get; set; }
         public string? Duracion { get; set; }
+        public string? Kcal { get; set; }
     }
     public enum EstadoEmocional{
         Feliz =1,
@@ -88,6 +90,7 @@ public class VistaEjerciciosGeneral{
         public string? EstadoInicio { get; set; }
         public string? EstadoFin { get; set; }
         public string? Observaciones { get; set; }
+        public string? Kcal { get; set; }
        
 }
 }

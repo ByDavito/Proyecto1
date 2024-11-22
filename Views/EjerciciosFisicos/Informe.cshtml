@@ -2,6 +2,8 @@
 
 <link rel="stylesheet" href="~/css/style-ejercicios.css">
 
+<input type="hidden" id="UsuarioID" value="@ViewBag.UsuarioID">
+
 <div class=" col-xl-4 col-md-4 mb-2 centrar flex-column text-center">
                 <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
                 @Html.DropDownList("IdEjercicio", null, htmlAttributes: new

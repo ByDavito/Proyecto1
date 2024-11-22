@@ -147,18 +147,30 @@ public class EventosController : Controller
 
     }
 
-   public IActionResult InformeGeneral()
+   public IActionResult InformeGeneral(int UsuarioID)
    {
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        UsuarioID = _context.Personas
+                .Where(t => t.CuentaID == userId)
+                .Select(t => t.PersonaID) // Proyecta solo el campo UsuarioID
+                .SingleOrDefault(); ;
+
+        ViewBag.UsuarioID = UsuarioID;
+        
+        return View();
        return View();
    }
-    public JsonResult InformeCompleto(DateTime? FechaDesde, DateTime? FechaHasta)
+    public JsonResult InformeCompleto(DateTime? FechaDesde, DateTime? FechaHasta, int? UsuarioID)
     {
         List<VistaEvento> VistaEvento = new List<VistaEvento>();
 
-        var ejercicios = _context.EjerciciosFisicos.Where(e => e.Inicio >= FechaDesde && e.Fin <= FechaHasta).Include(e => e.TipoEjercicio).Include(e => e.Lugar).Include(e => e.Evento).ToList();
+        var persona = _context.Personas.Where(p => p.PersonaID == UsuarioID).FirstOrDefault();
+
+        var ejercicios = _context.EjerciciosFisicos.Include(e => e.TipoEjercicio).Include(e => e.Lugar).Include(e => e.Evento).ToList();
 
         foreach (var ejercicio in ejercicios)
         {
+            
             var evento = VistaEvento.Where(e => e.EventoID == ejercicio.EventoID).SingleOrDefault();
             if(evento == null)
             {
@@ -194,6 +206,8 @@ public class EventosController : Controller
                 };
                 lugar.vistaTipoEjercicios.Add(tipoEjercicio);
             }
+            var tipo = _context.TipoEjercicios.Where(t => t.Eliminado == false && t.TipoEjercicioID == ejercicio.TipoEjercicioID).OrderBy(t => t.Nombre).FirstOrDefault();
+             var kcal = tipo.MET * ejercicio.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
 
             var Ejercicio = new VistaEjerciciosGeneral
             {
@@ -202,6 +216,7 @@ public class EventosController : Controller
                 EstadoInicio = ejercicio.EstadoInicio.ToString(),
                 EstadoFin = ejercicio.EstadoFin.ToString(),
                 Observaciones = ejercicio.Observaciones,
+                Kcal = kcal.ToString()
             };
             tipoEjercicio.VistaEjerciciosGeneral.Add(Ejercicio);
         }
