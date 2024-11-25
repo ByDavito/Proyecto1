@@ -34,7 +34,7 @@ function getInforme() {
                 console.log(ejercicio);
                 
                 contenidoTabla += `
-                <tr${Index === ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
+                <tr class="fila-resaltar">
                     <td>${ejercicio.tipoEjercicioNombre}</td>
                     <td></td>
                     <td></td>
@@ -42,19 +42,21 @@ function getInforme() {
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    
                 </tr>
              `;
              $.each(ejercicio.ejercicios, function (Index, data){
                 contenidoTabla += `
-                <tr>
+                <tr class="fila-resaltar">
                     <td></td>
                     <td>${data.inicioString}</td>
                     <td>${data.finString}</td>
                     <td>${data.estadoInicio}</td>
                     <td>${data.estadoFin}</td>
                     <td>${data.observaciones}</td>
-                    <td>${data.duracion}</td>
-                    <td>${data.kcal.slice(0, 6)}</td>
+                    <td>${data.duracion} min</td>
+                    <td>${data.kcal} Kcal</td>
 
                 </tr>
                 `

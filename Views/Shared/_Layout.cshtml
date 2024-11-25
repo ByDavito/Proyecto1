@@ -56,6 +56,13 @@
           <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-chart-column nav-iconos"></i>  Administrar</a>
           <span></span>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light" asp-area="" asp-controller="Ejercicios" asp-action="Ejercicios"> <i class="fa-solid fa-dumbbell nav-iconos"></i>
+           Tipo de Ejercicios</a>
+          <span></span>
+        </li>
+        
         } else{
         <li class="nav-item">
           <a class="nav-link text-light" asp-area="" asp-controller="EjerciciosFisicos" asp-action="Graficos"><i class="fa-solid fa-chart-column nav-iconos"></i>  Graficos</a>
@@ -108,7 +115,7 @@
           <a class="nav-link text-light" asp-area="" asp-controller="Persona" asp-action="Index">
              Perfil</a>
             <span></span>
-        </li>}
+        </li>
 
           <partial name="_LoginPartial" /> 
             <span></span> 

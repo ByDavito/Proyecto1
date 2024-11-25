@@ -3,6 +3,13 @@
 <input type="hidden" id="UsuarioID" value="@ViewBag.UsuarioID">
 
 
+<div><button type="button" onclick="getInforme()" class="btn  btn-icono">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+  <button type="button" class="btn  btn-icono" onclick="changeColor()">
+    <i class="fa-solid fa-palette"></i>
+  </button></div>
+
   <label for="fechaDesde" class="form-label titulo">Inicio</label>
 <input type="date" id="fechaDesde" class="form-control input-transparent input-circulo" onchange="getInforme()"/>
 
@@ -14,14 +21,15 @@
 <table class="table mi-tabla">
   <thead >
     <tr>
-      <th class="text-center align-middle"><div class="centrar"><p>Ejercicio</p></div></th>
-      <th class="text-center align-middle";"><div class="centrar"><p>Inicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Evento</p></div></th>
+      <th class="text-center align-middle";"><div class="centrar"><p>Lugar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>ejercicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Inicio</p></div></th>
       <th class="text-center align-middle"><div class="centrar"><p>Fin</p></div></th>
-      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
-      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
-      <th class="text-center align-middle"><div class="centrar"><p>Observaciones</p></div></th>
-      <th></th>
-      <th></th>
+      <th class="text-center align-middle hidden-mobile"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
+      <th class="text-center align-middle hidden-mobile"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
+      <th class="text-center align-middle hidden-mobile"><div class="centrar"><p>observacoines</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Kcals</p></div></th>
     </tr>
   </thead>
   <tbody id="tbody-ejerciciosFisicos" >

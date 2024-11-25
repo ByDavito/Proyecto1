@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proyecto1.Controllers;
 // [Authorize]
@@ -27,17 +28,22 @@ public class EjerciciosController : Controller
                 .SingleOrDefault(); ;
 
         ViewBag.UsuarioID = UsuarioID;
-        
+
         return View();
     }
 
     public JsonResult GetEjercicios(int? TipoEjercicioID, int UsuarioID)
     {
-        var TipoEjercicios = _context.TipoEjercicios.Where(e => e.Eliminado == false && e.PersonaID == UsuarioID).ToList();
+        var TipoEjercicios = _context.TipoEjercicios.Where(ejercicio => ejercicio.Persona_TipoEjercicios.Any(relacion => relacion.PersonaID == UsuarioID && !relacion.Eliminado)).ToList();
 
         if (TipoEjercicioID != null)
         {
-            TipoEjercicios = TipoEjercicios.Where(e => e.TipoEjercicioID == TipoEjercicioID ).ToList();
+            TipoEjercicios = TipoEjercicios.Where(e => e.TipoEjercicioID == TipoEjercicioID).ToList();
+        }
+
+        if (UsuarioID == 0)
+        {
+            TipoEjercicios = _context.TipoEjercicios.ToList();
         }
 
         return Json(TipoEjercicios.ToList());
@@ -48,16 +54,6 @@ public class EjerciciosController : Controller
 
     public JsonResult GuardarTipoEjercicio(string nombre, int TipoEjercicioID, bool Eliminado, int UsuarioID, float met)
     {
-        //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
-        // if (descripcion != null && descripcion != "")
-        // {
-        //     //INGRESA SI ESCRIBIO SI O SI
-        // }
-
-        // if (String.IsNullOrEmpty(descripcion) == false)
-        // {
-        //     //INGRESA SI ESCRIBIO SI O SI 
-        // }
 
         string resultado = "";
 
@@ -72,33 +68,51 @@ public class EjerciciosController : Controller
                 //3- VERIFICAMOS SI EXISTE EN BASE DE DATOS UN REGISTRO CON LA MISMA DESCRIPCION
                 //PARA REALIZAR ESA VERIFICACION BUSCAMOS EN EL CONTEXTO, ES DECIR EN BASE DE DATOS 
                 //SI EXISTE UN REGISTRO CON ESA DESCRIPCION  
-                var existeTipoEjercicio = _context.TipoEjercicios.Where(t => t.Nombre == nombre).Count();
-                if (existeTipoEjercicio == 0)
+                var existeTipoEjercicio = _context.TipoEjercicios.Where(t => t.Nombre == nombre).FirstOrDefault();
+                var relacionExistente = _context.Persona_tipoEjercicio.FirstOrDefault(t => t.PersonaID == UsuarioID && t.TipoEjercicioID == existeTipoEjercicio.TipoEjercicioID);
+                if (existeTipoEjercicio == null)
                 {
                     //4- GUARDAR EL TIPO DE EJERCICIO
                     var tipoEjercicio = new TipoEjercicio
                     {
                         Nombre = nombre,
-                        PersonaID = UsuarioID,
                         MET = met
+                    };
+                    var relacion = new Persona_tipoEjercicio
+                    {
+                        PersonaID = UsuarioID,
+                        TipoEjercicioID = tipoEjercicio.TipoEjercicioID,
+                        Eliminado = false
                     };
                     _context.Add(tipoEjercicio);
                     _context.SaveChanges();
                     resultado = "Se ha creado el nuevo ejercicio";
                 }
-                else if (existeTipoEjercicio == _context.TipoEjercicios.Where(t => t.Nombre == nombre && t.Eliminado == true).Count())
-{
-                    var activarEjercicio = _context.TipoEjercicios.FirstOrDefault(t => t.Nombre == nombre && t.Eliminado == true);
-                    if (activarEjercicio != null)
-                        {
-                            activarEjercicio.Eliminado = false;
-                            _context.SaveChanges();
-                        }
-}
+                else if (existeTipoEjercicio != null && relacionExistente != null)
+                {
+                    if (relacionExistente.Eliminado == true){
+                        relacionExistente.Eliminado = false;
+                        _context.SaveChanges();
+                        resultado = "Se ha creado el nuevo ejercicio";
+                    }
+                }
+
+                else if(existeTipoEjercicio != null && relacionExistente == null)
+                {
+                    var relacion = new Persona_tipoEjercicio
+                    {
+                        PersonaID = UsuarioID,
+                        TipoEjercicioID = existeTipoEjercicio.TipoEjercicioID,
+                        Eliminado = false
+                    };
+                    _context.Add(relacion);
+                    _context.SaveChanges();
+                    resultado = "Se ha creado el nuevo ejercicio";
+                }
 
                 else
                 {
-                    resultado = "Ya existe un registro con el mismo nombre";   
+                    resultado = "Ya existe un registro con el mismo nombre";
                 }
 
 
@@ -143,9 +157,9 @@ public class EjerciciosController : Controller
         return Json(true);
     }
 
-    public JsonResult DesactivarTipoEjercicio(int TipoEjercicioID)
+    public JsonResult DesactivarTipoEjercicio(int TipoEjercicioID, int UsuarioID)
     {
-        var Ejercicio = _context.TipoEjercicios.Find(TipoEjercicioID);
+        var Ejercicio = _context.Persona_tipoEjercicio.Where(t => t.TipoEjercicioID == TipoEjercicioID && t.PersonaID == UsuarioID).FirstOrDefault();
         if (Ejercicio.Eliminado == false)
         {
             Ejercicio.Eliminado = true;

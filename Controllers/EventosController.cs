@@ -158,7 +158,6 @@ public class EventosController : Controller
         ViewBag.UsuarioID = UsuarioID;
         
         return View();
-       return View();
    }
     public JsonResult InformeCompleto(DateTime? FechaDesde, DateTime? FechaHasta, int? UsuarioID)
     {
@@ -206,8 +205,8 @@ public class EventosController : Controller
                 };
                 lugar.vistaTipoEjercicios.Add(tipoEjercicio);
             }
-            var tipo = _context.TipoEjercicios.Where(t => t.Eliminado == false && t.TipoEjercicioID == ejercicio.TipoEjercicioID).OrderBy(t => t.Nombre).FirstOrDefault();
-             var kcal = tipo.MET * ejercicio.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
+            // var tipo = _context.TipoEjercicios.Where(t => t.Eliminado == false && t.TipoEjercicioID == ejercicio.TipoEjercicioID).OrderBy(t => t.Nombre).FirstOrDefault();
+             var kcal =  ejercicio.TipoEjercicio.MET *ejercicio.Intervalo.TotalHours * persona.Peso * (persona.Sexo == Sexo.Femenino ? 0.9 : 1);
 
             var Ejercicio = new VistaEjerciciosGeneral
             {
@@ -216,7 +215,7 @@ public class EventosController : Controller
                 EstadoInicio = ejercicio.EstadoInicio.ToString(),
                 EstadoFin = ejercicio.EstadoFin.ToString(),
                 Observaciones = ejercicio.Observaciones,
-                Kcal = kcal.ToString()
+                Kcal = kcal.ToString("F2")
             };
             tipoEjercicio.VistaEjerciciosGeneral.Add(Ejercicio);
         }

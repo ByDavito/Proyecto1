@@ -20,7 +20,7 @@ public class Persona
 
     public virtual ICollection<Evento> Eventos { get; set; }
 
-    public virtual ICollection<TipoEjercicio> TipoEjercicios { get; set; }
+    public virtual ICollection<Persona_tipoEjercicio> Persona_TipoEjercicos { get; set; }
 
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }

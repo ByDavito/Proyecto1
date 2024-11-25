@@ -8,11 +8,9 @@ public class TipoEjercicio
     public int TipoEjercicioID { get; set; }
 
     public string? Nombre { get; set; }
-    public bool Eliminado { get; set; }
-    public int? PersonaID { get; set; }
     public float MET { get; set; }
 
-    public virtual Persona Persona { get; set; }
+    public virtual ICollection<Persona_tipoEjercicio> Persona_TipoEjercicios { get; set; }
     public virtual ICollection<EjercicioFisico> EjerciciosFisicos { get; set; }
 }
 

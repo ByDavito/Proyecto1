@@ -41,7 +41,7 @@ function GetEjerciciosFisicos() {{
                     <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
                     <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
-                    <td class="borde-td align-middle"><div><p>${Ejercicio.kcal.slice(0, 6)}</p></div></td>
+                    <td class="borde-td align-middle"><div><p>${Ejercicio.kcal} Kcal</p></div></td>
                     <td class="borde-td align-middle" style=" max-width: 12rem;"><div><p>${Ejercicio.observaciones}</p></div></td>
                     <td class="align-middle">
                     <button type="button" class="btn btn-icono edit" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">

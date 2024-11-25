@@ -35,7 +35,8 @@ button.edit:hover{
 
 
 .table {
-    width: 45rem;
+    max-width: 60vh;
+    min-width: 15rem;
     background-color: rgba(0, 0, 0, 0.389);
     backdrop-filter: blur(10px);
     color: white;
@@ -63,6 +64,7 @@ button.edit:hover{
   border-left: 1px solid transparent; 
   border-right: 1px solid transparent;
   border-bottom: 2px solid rgba(200, 4, 4, 0.411);
+  width: 100%;
   transition: .5s;
 }
 
@@ -86,15 +88,15 @@ button.edit:hover{
   color: white; 
 }
 
-.table tr.ultima-fila td:first-child {
+.table tr:last-child td:first-child {
   border-bottom-left-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
 
 /* Aplicar bordes redondeados solo al último elemento de la última fila */
-.table tr.ultima-fila td:last-child {
+.table tr:last-child td:last-child {
   border-bottom-right-radius: 15px; /* Ajustá el valor según lo que necesites */
 }
-.table tr.ultima-fila td {
+.table tr:last-child td {
   border-bottom: solid transparent;
 }
 
@@ -106,4 +108,14 @@ button.edit:hover{
 
 input.input-transparent::placeholder {
   color: rgb(245, 245, 245);
+}
+
+@media screen and (max-width: 900px) {
+  .hidden-mobile{
+    display: none;
+  }
+  .table{
+    width: 100%;
+  }
+  
 }
