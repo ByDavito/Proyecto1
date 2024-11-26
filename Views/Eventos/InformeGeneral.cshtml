@@ -10,14 +10,22 @@
     <i class="fa-solid fa-palette"></i>
   </button></div>
 
-  <label for="fechaDesde" class="form-label titulo">Inicio</label>
-<input type="date" id="fechaDesde" class="form-control input-transparent input-circulo" onchange="getInforme()"/>
+<div>
+ <div class="mb-2 row background-element text-center" >
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column">
+  <label for="fechaInicio" class="form-label titulo">Inicio</label>
+<input type="date" id="fechaDesde" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
+</div>
+
+<div class=" col-xl-4 col-md-4 mb-2 centrar flex-column">
+<label for="fechaFin" class="form-label titulo">Inicio</label>
+<input type="date" id="fechaHasta" class="form-control input-transparent input-circulo" onchange="expanded(this), GetEjerciciosFisicos()"/>
+</div>
 
 
-<label for="fechaHasta" class="form-label titulo">Fin</label>
-<input type="date" id="fechaHasta" class="form-control input-transparent input-circulo" onchange="getInforme()"/>
+</div>
 
-
+<div class="Tbody-class">
 <table class="table mi-tabla">
   <thead >
     <tr>
@@ -32,9 +40,10 @@
       <th class="text-center align-middle"><div class="centrar"><p>Kcals</p></div></th>
     </tr>
   </thead>
-  <tbody id="tbody-ejerciciosFisicos" >
+  <tbody id="tbody-ejerciciosFisicos" class="tbody-overflow" >
   </tbody>
 </table>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/informeGeneral.js"></script>
