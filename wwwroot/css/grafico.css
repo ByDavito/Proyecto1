@@ -3,20 +3,21 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    margin-top: 2rem;
 }
 
 .container-grafic{
-    height: 37vh; 
-    width: 22vw;
+    height: auto; 
     background-color: rgba(0, 0, 0, 0.389);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    margin: .6rem;
+    
 }
 
 .col-grafic{
-    height: 35vh;
     width: 100%;
+    height: auto;
+    box-sizing: content-box;
 }
 
 .canva-grafic{
@@ -25,31 +26,53 @@ body{
     color: white;
 }
 
-.card-container{
-    height: 50vh; 
-    width: 40vw;
+.container-grafic-donut{
+    height: 26rem; 
     background-color: rgba(0, 0, 0, 0.389);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    margin: .6rem;
+    
 }
 
 .card-dias-con{
     background-color: rgba(1, 179, 1, 0.389);
-    width: 15vw;
+    margin: 5px;
     height: 3rem;
     border-radius: 15px;
-    margin: 1rem;
     text-align: center;
-    padding: 25px;
+    padding: 5px;
 }
 
 .card-dias-sin{
     background-color: rgba(243, 0, 0, 0.389);
-    width: 15vw;
+    margin: 5px 0;
     height: 3rem;
     border-radius: 15px;
-    margin: 1rem;
     text-align: center;
-    padding: 25px;
+    padding: 5px;
+}
+
+@media screen and (max-width: 900px) {
+    .canva-grafic{
+        height: auto;
+        width: 95%;
+    }
+    .container-grafic-donut{
+        height: auto;
+        margin: .6rem 0;
+    }
+    .container-grafic{
+        height: auto;
+        margin: .6rem 0;
+    }
+    .reverse{
+        flex-direction: column-reverse;
+    }
+}
+
+@media (min-width: 200px) {
+    .col-sm-4 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
 }

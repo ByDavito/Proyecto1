@@ -64,7 +64,7 @@ function mostrarGrafico() {
             let totalMinutos = 0;
 
             $.each(ejercicioFisicos, function (index, ejercicioFisico) {
-                labels.push(ejercicioFisico.dia + " de " + ejercicioFisico.mes);
+                labels.push(ejercicioFisico.dia );
                 data.push(ejercicioFisico.cantidadMinutos);
 
                 totalMinutos += ejercicioFisico.cantidadMinutos;

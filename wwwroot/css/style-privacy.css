@@ -1,13 +1,12 @@
 .privacy-logo{
-    margin-bottom: 1rem;
+    margin: 1rem auto;
     height: 14rem;
     width: 20.5rem;
     opacity: 0.8;
 }
 
 .privacy-logo-text{
-    margin-top: 1rem;
-    margin-left: 15rem;
+    margin: 0 auto;
     height: 5rem;
     width: 16.64rem;
     opacity: 0.8;
@@ -20,12 +19,12 @@ p {
     margin-top: 1rem;
     margin-bottom: 1rem;
     text-align: start;
-    width: 40vw;
 }
 
 .contenedor-fondo{
-    height: 49.8Vh;
-    width: 50vw;
+    height: auto;
+    max-width: 1000px;
+    width: 85%;
     display: flex;
     flex-direction: row;
     background-color: rgba(0, 0, 0, 0.432);
@@ -35,8 +34,8 @@ p {
 }
 
 .contenedor-texto {
-    height: 100%;
-    width: 25.5vw;
+    height: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,14 +44,13 @@ p {
 }
 
 .contenedor-texto p{
-    word-break: break-all;
+    word-break: break-word;
     overflow-wrap: break-word;
 
 }
 
 .contenedor-botones{
-    height: 100%;
-    width: 34vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,4 +70,12 @@ p {
     color: white;
     font-size: 1.2rem;
     text-shadow: 0 0 5px white;
+}
+
+@media screen and (max-width: 900px) {
+    .privacy-logo{
+    height: 11.5rem;
+    width: 17rem;
+    margin-right: 1rem;
+    }
 }
